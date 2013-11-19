@@ -3,3 +3,14 @@
 
 	Matt Costi, Ben Senecal
 */
+CREATE TABLE Employee
+(
+ID int PRIMARY KEY,
+FName varchar(20),
+LName varchar(20),
+Salary int,
+jobTitle varchar(20),
+OfficeNum int,
+empRank varchar(10) /*CHECK*/,
+supervisorID int
+);
