@@ -22,3 +22,21 @@ CREATE TABLE Employee
 	empRank varchar(10) /*CHECK*/,
 	supervisorID int
 );
+
+CREATE TABLE Equipment
+(
+	serialNum int PRIMARY KEY,
+	typeID int,
+	purchaseYear smallint, /*investigate better way for year*/
+	lastInspection date,
+	roomNum int
+);
+
+CREATE TABLE EquipmentType
+(
+	ID int PRIMARY KEY,
+	description text,
+	model varchar(50),
+	instructions text,
+	numUnits int
+);
