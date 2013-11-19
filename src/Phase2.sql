@@ -7,28 +7,18 @@
 /*	Drop all tables to make sure database
 	is cleared before starting
 */
+select 'drop table '||table_name||' cascade constraints;' from user_tables;
 
-DROP TABLE Employee;
-DROP TABLE EquiptmentType;
-DROP TABLE Equipment;
-DROP TABLE Room;
-DROP TABLE RoomService;
-DROP TABLE RoomAccess;
-DROP TABLE Patient;
-DROP TABLE Doctor;
-DROP TABLE Admission;
-DROP TABLE Examine;
-DROP TABLE StayIn;
+/* Create Entity tables */
 
 CREATE TABLE Employee
 (
-ID int PRIMARY KEY,
-FName varchar(20),
-LName varchar(20),
-Salary int,
-jobTitle varchar(20),
-OfficeNum int,
-empRank varchar(10) /*CHECK*/,
-supervisorID int
+	ID int PRIMARY KEY,
+	fName varchar(20),
+	lName varchar(20),
+	salary int,
+	jobTitle varchar(20),
+	officeNum int,
+	empRank varchar(10) /*CHECK*/,
+	supervisorID int
 );
-
