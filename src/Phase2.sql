@@ -77,3 +77,13 @@ CREATE TABLE Doctor
 Constraint genderVal check (gender in ('M', 'F'))
 );
 
+CREATE TABLE Admission
+(
+	admissionNum int PRIMARY KEY,
+	admissionDate date,
+	leaveDate date,
+	totalPayment number(*, 2),
+	insurancePayment number(*, 2),
+	patientSSN int,
+Foreign Key patientSSN References Patient(SSN)
+);
