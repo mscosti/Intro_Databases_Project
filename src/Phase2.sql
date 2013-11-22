@@ -40,3 +40,9 @@ CREATE TABLE EquipmentType
 	instructions text,
 	numUnits int
 );
+
+CREATE TABLE Service
+(
+	roomNum int,
+	serviceName varchar(20)
+);
