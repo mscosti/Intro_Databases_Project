@@ -67,3 +67,13 @@ CREATE TABLE Patient
 	telNum int
 );
 
+CREATE TABLE Doctor
+(
+	ID int PRIMARY KEY,
+	gender char(1),
+	specialty varchar(20),
+	firstName varchar(20),
+	lastName varchar(20),
+Constraint genderVal check (gender in ('M', 'F'))
+);
+
