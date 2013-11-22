@@ -41,8 +41,16 @@ CREATE TABLE EquipmentType
 	numUnits int
 );
 
+
 CREATE TABLE Service
 (
 	roomNum int,
 	serviceName varchar(20)
 );
+
+CREATE TABLE Room 
+(
+	roomNumber int PRIMARY KEY,
+	occupiedFlag CHAR(1) /*Check/restrict for Y/N*/
+)
+
