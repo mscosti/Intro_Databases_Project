@@ -45,7 +45,7 @@ CREATE TABLE EquipmentType
 CREATE TABLE Room 
 (
 	roomNumber int PRIMARY KEY,
-	occupiedFlag CHAR(1) /*Check/restrict for Y/N*/
+	occupiedFlag CHAR(1),
 Constraint flag check (occupiedFlag in('Y','N'))
 );
 
@@ -56,5 +56,14 @@ CREATE TABLE Service
 	serviceName varchar(20),
 Foreign Key roomNum References Room(roomNumber),
 Constraint pk Primary Key (serviceID,roomNum)
+);
+
+CREATE TABLE Patient
+(
+	SSN int PRIMARY KEY,
+	firstName varchar(20),
+	lastName varchar(20),
+	address varchar(30),
+	telNum int
 );
 
