@@ -19,8 +19,9 @@ CREATE TABLE Employee
 	salary int,
 	jobTitle varchar(20),
 	officeNum int,
-	empRank varchar(10) /*CHECK*/,
-	supervisorID int
+	empRank varchar(11),
+	supervisorID int,
+Constraint empVal check (empRank in ('Regular','DivisionMng','GeneralMng'))
 );
 
 CREATE TABLE Equipment
@@ -41,16 +42,19 @@ CREATE TABLE EquipmentType
 	numUnits int
 );
 
-
-CREATE TABLE Service
-(
-	roomNum int,
-	serviceName varchar(20)
-);
-
 CREATE TABLE Room 
 (
 	roomNumber int PRIMARY KEY,
 	occupiedFlag CHAR(1) /*Check/restrict for Y/N*/
-)
+Constraint flag check (occupiedFlag in('Y','N'))
+);
+
+CREATE TABLE Service
+(
+	serviceID int,
+	roomNum int,
+	serviceName varchar(20),
+Foreign Key roomNum References Room(roomNumber),
+Constraint pk Primary Key (serviceID,roomNum)
+);
 
