@@ -145,3 +145,9 @@ GROUP BY patientSSN;
 SELECT roomNum
 FROM Equipment
 WHERE serialNum = 'A01-02X';
+
+/* 6 */
+SELECT empID, MAX(COUNT(roomNum)) AS numRoomsAccessible
+FROM RoomAccess
+GROUP BY empID;
+
