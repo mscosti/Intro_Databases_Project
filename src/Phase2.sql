@@ -49,13 +49,22 @@ CREATE TABLE Room
 Constraint flag check (occupiedFlag in('Y','N'))
 );
 
-CREATE TABLE Service
+CREATE TABLE RoomService
 (
 	serviceID int,
 	roomNum int,
 	serviceName varchar(20),
 Foreign Key roomNum References Room(roomNumber),
 Constraint pk Primary Key (serviceID,roomNum)
+);
+
+CREATE TABLE RoomAccess
+(
+	roomNum int,
+	empID int,
+Foreign Key roomNum References Room(roomNumber),
+Foreign Key empID References Employee(ID),
+Constraint pk Primary Key (roomNum, empID)
 );
 
 CREATE TABLE Patient
