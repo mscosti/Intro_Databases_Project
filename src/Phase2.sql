@@ -117,3 +117,15 @@ Foreign Key admissionNum References Admission(admissionNum),
 Foreign Key roomNum References Room(roomNumber),
 Constraint pk Primary Key (admissionNum, roomNum, startDate)
 );
+
+/* SQL queries */
+
+/* 1 */
+SELECT roomNumber
+FROM Room
+WHERE occupiedFlag = 'Y';
+
+/* 2 */
+SELECT ID, fName, lName, salary
+FROM Employee
+WHERE empRank = 'Regular' AND supervisorID = 10;
