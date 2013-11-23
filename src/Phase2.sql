@@ -135,3 +135,9 @@ SELECT patientSSN, SUM(insurancePayment) AS amountPaid
 FROM Admission
 GROUP BY patientSSN
 
+/* 4 */
+SELECT patientSSN, fName, lName, COUNT(patientSSN) as patientVisits
+FROM Admission A, Patient P
+WHERE A.patientSSN = P.SSN
+GROUP BY patientSSN
+
