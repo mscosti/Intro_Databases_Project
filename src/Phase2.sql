@@ -93,6 +93,7 @@ CREATE TABLE Admission
 	leaveDate date,
 	totalPayment number(*, 2),
 	insurancePayment number(*, 2),
+	futureVisitDate date,
 	patientSSN int,
 Foreign Key (patientSSN) References Patient(SSN)
 );
@@ -150,4 +151,15 @@ WHERE serialNum = 'A01-02X';
 SELECT empID, MAX(COUNT(roomNum)) AS numRoomsAccessible
 FROM RoomAccess
 GROUP BY empID;
+
+/* 7 */
+SELECT empRank AS Type, COUNT(ID) AS Count
+FROM Employee
+GROUP BY empRank;
+
+/* 8 */
+SELECT patientSSN, fname, lname, futureVisitDate
+FROM Admission
+WHERE futureVisitDate IS NOT NULL;
+
 
