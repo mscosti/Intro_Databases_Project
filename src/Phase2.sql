@@ -28,7 +28,7 @@ CREATE TABLE Equipment
 (
 	serialNum int PRIMARY KEY,
 	typeID int,
-	purchaseYear smallint, /*investigate better way for year*/
+	purchaseYear int, 
 	lastInspection date,
 	roomNum int
 );
@@ -36,9 +36,9 @@ CREATE TABLE Equipment
 CREATE TABLE EquipmentType
 (
 	ID int PRIMARY KEY,
-	description text,
+	description varchar(200),
 	model varchar(50),
-	instructions text,
+	instructions varchar(500),
 	numUnits int
 );
 
@@ -101,7 +101,7 @@ CREATE TABLE Examine
 (
 	doctorID int,
 	admissionNum int,
-	comment text,
+	comment varchar(500),
 Foreign Key (doctorID) References Doctor(ID),
 Foreign Key (admissionNum) References Admission(admissionNum),
 Constraint examinePK Primary Key (doctorID, admissionNum)
