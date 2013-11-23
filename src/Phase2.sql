@@ -26,7 +26,7 @@ Constraint empVal check (empRank in ('Regular','DivisionMng','GeneralMng'))
 
 CREATE TABLE Equipment
 (
-	serialNum int PRIMARY KEY,
+	serialNum char(7) PRIMARY KEY,
 	typeID int,
 	purchaseYear int, 
 	lastInspection date,
@@ -133,11 +133,15 @@ WHERE empRank = 'Regular' AND supervisorID = 10;
 /* 3 */
 SELECT patientSSN, SUM(insurancePayment) AS amountPaid
 FROM Admission
-GROUP BY patientSSN
+GROUP BY patientSSN;
 
 /* 4 */
 SELECT patientSSN, fName, lName, COUNT(patientSSN) as patientVisits
 FROM Admission A, Patient P
 WHERE A.patientSSN = P.SSN
-GROUP BY patientSSN
+GROUP BY patientSSN;
 
+/* 5 */
+SELECT roomNum
+FROM Equipment
+WHERE serialNum = 'A01-02X';
