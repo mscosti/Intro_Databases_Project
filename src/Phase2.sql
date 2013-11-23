@@ -129,3 +129,9 @@ WHERE occupiedFlag = 'Y';
 SELECT ID, fName, lName, salary
 FROM Employee
 WHERE empRank = 'Regular' AND supervisorID = 10;
+
+/* 3 */
+SELECT patientSSN, SUM(insurancePayment) AS amountPaid
+FROM Admission
+GROUP BY patientSSN
+
