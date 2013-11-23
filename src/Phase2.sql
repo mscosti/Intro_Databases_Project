@@ -97,7 +97,7 @@ CREATE TABLE Admission
 Foreign Key patientSSN References Patient(SSN)
 );
 
-CREATE TABLE Examoine
+CREATE TABLE Examine
 (
 	doctorID int,
 	admissionNum int,
@@ -106,3 +106,14 @@ Foreign Key doctorID References Doctor(ID),
 Foreign Key admissionNum References Admission(admissionNum),
 Constraint pk Primary Key (doctorID, admissionNum)
 ); 
+
+CREATE TABLE StayIn
+(
+	admissionNum int,
+	roomNum int,
+	startDate date,
+	endDate date,
+Foreign Key admissionNum References Admission(admissionNum),
+Foreign Key roomNum References Room(roomNumber),
+Constraint pk Primary Key (admissionNum, roomNum, startDate)
+);
