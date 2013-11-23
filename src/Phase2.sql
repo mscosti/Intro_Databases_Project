@@ -54,7 +54,7 @@ CREATE TABLE RoomService
 	serviceID int,
 	roomNum int,
 	serviceName varchar(20),
-Foreign Key roomNum References Room(roomNumber),
+Foreign Key (roomNum) References Room(roomNumber),
 Constraint pk Primary Key (serviceID,roomNum)
 );
 
@@ -62,8 +62,8 @@ CREATE TABLE RoomAccess
 (
 	roomNum int,
 	empID int,
-Foreign Key roomNum References Room(roomNumber),
-Foreign Key empID References Employee(ID),
+Foreign Key (roomNum) References Room(roomNumber),
+Foreign Key (empID) References Employee(ID),
 Constraint pk Primary Key (roomNum, empID)
 );
 
@@ -94,7 +94,7 @@ CREATE TABLE Admission
 	totalPayment number(*, 2),
 	insurancePayment number(*, 2),
 	patientSSN int,
-Foreign Key patientSSN References Patient(SSN)
+Foreign Key (patientSSN) References Patient(SSN)
 );
 
 CREATE TABLE Examine
@@ -102,8 +102,8 @@ CREATE TABLE Examine
 	doctorID int,
 	admissionNum int,
 	comment text,
-Foreign Key doctorID References Doctor(ID),
-Foreign Key admissionNum References Admission(admissionNum),
+Foreign Key (doctorID) References Doctor(ID),
+Foreign Key (admissionNum) References Admission(admissionNum),
 Constraint pk Primary Key (doctorID, admissionNum)
 ); 
 
@@ -113,8 +113,8 @@ CREATE TABLE StayIn
 	roomNum int,
 	startDate date,
 	endDate date,
-Foreign Key admissionNum References Admission(admissionNum),
-Foreign Key roomNum References Room(roomNumber),
+Foreign Key (admissionNum) References Admission(admissionNum),
+Foreign Key (roomNum) References Room(roomNumber),
 Constraint pk Primary Key (admissionNum, roomNum, startDate)
 );
 
