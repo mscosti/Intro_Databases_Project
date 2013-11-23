@@ -101,7 +101,7 @@ CREATE TABLE Examine
 (
 	doctorID int,
 	admissionNum int,
-	comment varchar(500),
+	comments varchar(500),
 Foreign Key (doctorID) References Doctor(ID),
 Foreign Key (admissionNum) References Admission(admissionNum),
 Constraint examinePK Primary Key (doctorID, admissionNum)
