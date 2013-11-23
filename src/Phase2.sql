@@ -96,3 +96,13 @@ CREATE TABLE Admission
 	patientSSN int,
 Foreign Key patientSSN References Patient(SSN)
 );
+
+CREATE TABLE Examoine
+(
+	doctorID int,
+	admissionNum int,
+	comment text,
+Foreign Key doctorID References Doctor(ID),
+Foreign Key admissionNum References Admission(admissionNum),
+Constraint pk Primary Key (doctorID, admissionNum)
+); 
