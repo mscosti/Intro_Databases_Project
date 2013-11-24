@@ -69,10 +69,10 @@ Constraint accessPK Primary Key (roomNum, empID)
 
 CREATE TABLE Patient
 (
-	SSN int PRIMARY KEY,
+	SSN char(11) PRIMARY KEY,
 	firstName varchar(20),
 	lastName varchar(20),
-	address varchar(30),
+	address varchar(100),
 	telNum int
 );
 
@@ -118,6 +118,91 @@ Foreign Key (admissionNum) References Admission(admissionNum),
 Foreign Key (roomNum) References Room(roomNumber),
 Constraint stayInPK Primary Key (admissionNum, roomNum, startDate)
 );
+
+/* insert data into tables */
+
+INSERT INTO Patient VALUES
+('000-00-0001', 'Matt', 'Costi',
+	'19 East Street, Boston MA 01234',
+	5555555555);
+INSERT INTO Patient VALUES
+('000-00-0002', 'Ben', 'Senecal',
+	'19 East Street apt 7, Boston MA 01234',
+	3333334444);
+INSERT INTO Patient VALUES
+('000-00-0003', 'Pat1', 'Last1',
+	'19 East Street, Boston MA 01234',
+	5555555555);
+INSERT INTO Patient VALUES
+('000-00-0004', 'Pat2', 'Last2',
+	'19 East Street, Boston MA 01234',
+	5555555555);
+INSERT INTO Patient VALUES
+('000-00-0005', 'Matt', 'Costi',
+	'19 East Street, Boston MA 01234',
+	5555555555);
+INSERT INTO Patient VALUES
+('000-00-0006', 'Matt', 'Costi',
+	'19 East Street, Boston MA 01234',
+	5555555555);
+INSERT INTO Patient VALUES
+('000-00-0007', 'Matt', 'Costi',
+	'19 East Street, Boston MA 01234',
+	5555555555);
+INSERT INTO Patient VALUES
+('000-00-0008', 'Matt', 'Costi',
+	'19 East Street, Boston MA 01234',
+	5555555555);
+INSERT INTO Patient VALUES
+('000-00-0009', 'Matt', 'Costi',
+	'19 East Street, Boston MA 01234',
+	5555555555);
+INSERT INTO Patient VALUES
+('000-00-0010', 'Matt', 'Costi',
+	'19 East Street, Boston MA 01234',
+	5555555555);
+
+INSERT INTO Doctor VALUES
+(00, 'M', 'Doctoring', 'Bill', 'Who');
+INSERT INTO Doctor VALUES
+(11, 'M', 'Doctoring', 'Bill', 'Who');
+INSERT INTO Doctor VALUES
+(22, 'M', 'Doctoring', 'Bill', 'Who');
+INSERT INTO Doctor VALUES
+(33, 'M', 'Doctoring', 'Bill', 'Who');
+INSERT INTO Doctor VALUES
+(44, 'M', 'Doctoring', 'Bill', 'Who');
+INSERT INTO Doctor VALUES
+(55, 'F', 'Doctoring', 'Bill', 'Who');
+INSERT INTO Doctor VALUES
+(66, 'F', 'Doctoring', 'Bill', 'Who');
+INSERT INTO Doctor VALUES
+(77, 'F', 'Doctoring', 'Bill', 'Who');
+INSERT INTO Doctor VALUES
+(88, 'F', 'Doctoring', 'Bill', 'Who');
+INSERT INTO Doctor VALUES
+(99, 'F', 'Doctoring', 'Bill', 'Who');
+
+INSERT INTO Room VALUES
+(100, 'N');
+INSERT INTO Room VALUES
+(101, 'N');
+INSERT INTO Room VALUES
+(102, 'Y');
+INSERT INTO Room VALUES
+(103, 'Y');
+INSERT INTO Room VALUES
+(104, 'N');
+INSERT INTO Room VALUES
+(200, 'N');
+INSERT INTO Room VALUES
+(201, 'Y');
+INSERT INTO Room VALUES
+(202, 'Y');
+INSERT INTO Room VALUES
+(203, 'Y');
+INSERT INTO Room VALUES
+(204, 'N');
 
 /* SQL queries */
 
