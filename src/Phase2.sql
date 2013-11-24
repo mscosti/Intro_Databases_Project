@@ -132,45 +132,25 @@ Constraint stayInPK Primary Key (admissionNum, roomNum, startDate)
 /* insert data into tables */
 
 INSERT INTO Patient VALUES
-('000-00-0001', 'Matt', 'Costi',
-	'19 East Street, Boston MA 01234',
-	5555555555);
+('000-00-0001', 'Matt', 'Costi','19 East Street, Boston MA 01234',5555555555);
 INSERT INTO Patient VALUES
-('000-00-0002', 'Ben', 'Senecal',
-	'19 East Street apt 7, Boston MA 01234',
-	3333334444);
+('000-00-0002', 'Ben', 'Senecal','19 East Street apt 7, Boston MA 01234',3333334444);
 INSERT INTO Patient VALUES
-('000-00-0003', 'Pat1', 'Last1',
-	'19 East Street, Boston MA 01234',
-	5555555555);
+('000-00-0003', 'Pat1', 'Last1','19 East Street, Boston MA 01234',5555555555);
 INSERT INTO Patient VALUES
-('000-00-0004', 'Pat2', 'Last2',
-	'19 East Street, Boston MA 01234',
-	5555555555);
+('000-00-0004', 'Pat2', 'Last2','19 East Street, Boston MA 01234',5555555555);
 INSERT INTO Patient VALUES
-('000-00-0005', 'Matt', 'Costi',
-	'19 East Street, Boston MA 01234',
-	5555555555);
+('000-00-0005', 'Matt', 'Costi','19 East Street, Boston MA 01234',5555555555);
 INSERT INTO Patient VALUES
-('000-00-0006', 'Matt', 'Costi',
-	'19 East Street, Boston MA 01234',
-	5555555555);
+('000-00-0006', 'Matt', 'Costi','19 East Street, Boston MA 01234',5555555555);
 INSERT INTO Patient VALUES
-('000-00-0007', 'Matt', 'Costi',
-	'19 East Street, Boston MA 01234',
-	5555555555);
+('000-00-0007', 'Matt', 'Costi','19 East Street, Boston MA 01234',5555555555);
 INSERT INTO Patient VALUES
-('000-00-0008', 'Matt', 'Costi',
-	'19 East Street, Boston MA 01234',
-	5555555555);
+('000-00-0008', 'Matt', 'Costi','19 East Street, Boston MA 01234',5555555555);
 INSERT INTO Patient VALUES
-('000-00-0009', 'Matt', 'Costi',
-	'19 East Street, Boston MA 01234',
-	5555555555);
+('000-00-0009', 'Matt', 'Costi','19 East Street, Boston MA 01234',5555555555);
 INSERT INTO Patient VALUES
-('000-00-0010', 'Matt', 'Costi',
-	'19 East Street, Boston MA 01234',
-	5555555555);
+('000-00-0010', 'Matt', 'Costi','19 East Street, Boston MA 01234',5555555555);
 
 INSERT INTO Doctor VALUES
 (00, 'M', 'Doctoring', 'Bill', 'Who');
@@ -193,6 +173,22 @@ INSERT INTO Doctor VALUES
 INSERT INTO Doctor VALUES
 (99, 'F', 'Doctoring', 'Bill', 'Who');
 
+INSERT INTO Employee VALUES
+(1, 'Bob', 'Smith', 50000, 'secretary', 1001,
+	'Regular',2);
+INSERT INTO Employee VALUES
+(2, 'Div', 'Mng1', 70000, 'supervisor',2001,
+	'DivisionMng',3);
+INSERT INTO Employee VALUES
+(3, 'Gen', 'Mng2',NULL);
+
+INSERT INTO Equipment VALUES
+('001-abc', 1000, 2003, DATE '2011-01-01', 1001);
+
+INSERT INTO EquipmentType VALUES
+(1001, 'Sonic Screwdriver', 'abc-123', 'be careful', 11);
+
+
 INSERT INTO Room VALUES
 (100, 'N');
 INSERT INTO Room VALUES
@@ -214,36 +210,21 @@ INSERT INTO Room VALUES
 INSERT INTO Room VALUES
 (204, 'N');
 
+INSERT INTO RoomService VALUES
+(001,100, "shower");
+
+
 INSERT INTO Admission VALUES
 (1, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00,DATE '2013-02-01',
 	'000-00-0001');
-INSERT INTO Admission VALUES
-(2, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00,DATE '2013-02-01',
-	'000-00-0001');
-INSERT INTO Admission VALUES
-(3, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00,DATE '2013-02-01',
-	'000-00-0001');
-INSERT INTO Admission VALUES
-(4, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00,DATE '2013-02-01',
-	'000-00-0001');
-INSERT INTO Admission VALUES
-(5, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00,DATE '2013-02-01',
-	'000-00-0001');
-INSERT INTO Admission VALUES
-(6, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00,DATE '2013-02-01',
-	'000-00-0001');
-INSERT INTO Admission VALUES
-(7, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00,DATE '2013-02-01',
-	'000-00-0001');
-INSERT INTO Admission VALUES
-(8, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00,DATE '2013-02-01',
-	'000-00-0001');
-INSERT INTO Admission VALUES
-(9, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00,DATE '2013-02-01',
-	'000-00-0001');
-INSERT INTO Admission VALUES
-(10, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00,DATE '2013-02-01',
-	'000-00-0001');
+
+INSERT INTO Examine VALUES
+(00, 1, "Patient is probably terminal");
+
+INSERT INTO StayIn VALUES
+(1, 100, DATE '2013-01-01', DATE '2013-01-02');
+
+
 
 /* SQL queries */
 
