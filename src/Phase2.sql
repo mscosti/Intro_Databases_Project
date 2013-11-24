@@ -7,8 +7,18 @@
 /*	Drop all tables to make sure database
 	is cleared before starting
 */
-select 'drop table '||table_name||' cascade constraints;' from user_tables;
-
+/*select 'drop table '||table_name||' cascade constraints;' from user_tables;*/
+DROP TABLE Employee CASCADE CONSTRAINTS;
+DROP TABLE Equipment CASCADE CONSTRAINTS;
+DROP TABLE EquipmentType CASCADE CONSTRAINTS;
+DROP TABLE Room CASCADE CONSTRAINTS;
+DROP TABLE RoomService CASCADE CONSTRAINTS;
+DROP TABLE RoomAccess CASCADE CONSTRAINTS;
+DROP TABLE Patient CASCADE CONSTRAINTS;
+DROP TABLE Doctor CASCADE CONSTRAINTS;
+DROP TABLE Admission CASCADE CONSTRAINTS;
+DROP TABLE Examine CASCADE CONSTRAINTS;
+DROP TABLE StayIn CASCADE CONSTRAINTS;
 /* Create Entity tables */
 
 CREATE TABLE Employee
@@ -70,8 +80,8 @@ Constraint accessPK Primary Key (roomNum, empID)
 CREATE TABLE Patient
 (
 	SSN char(11) PRIMARY KEY,
-	firstName varchar(20),
-	lastName varchar(20),
+	fName varchar(20),
+	lName varchar(20),
 	address varchar(100),
 	telNum int
 );
@@ -81,8 +91,8 @@ CREATE TABLE Doctor
 	ID int PRIMARY KEY,
 	gender char(1),
 	specialty varchar(20),
-	firstName varchar(20),
-	lastName varchar(20),
+	fName varchar(20),
+	lName varchar(20),
 Constraint genderVal check (gender in ('M', 'F'))
 );
 
@@ -94,7 +104,7 @@ CREATE TABLE Admission
 	totalPayment number(*, 2),
 	insurancePayment number(*, 2),
 	futureVisitDate date,
-	patientSSN int,
+	patientSSN char(11),
 Foreign Key (patientSSN) References Patient(SSN)
 );
 
@@ -222,10 +232,10 @@ FROM Admission
 GROUP BY patientSSN;
 
 /* 4 */
-SELECT patientSSN, fName, lName, COUNT(patientSSN) as patientVisits
+SELECT patientSSN, P.fName, P.lName, COUNT(patientSSN) as patientVisits
 FROM Admission A, Patient P
 WHERE A.patientSSN = P.SSN
-GROUP BY patientSSN;
+GROUP BY patientSSN, P.fName, P.lName;
 
 /* 5 */
 SELECT roomNum
@@ -233,9 +243,11 @@ FROM Equipment
 WHERE serialNum = 'A01-02X';
 
 /* 6 */
-SELECT empID, MAX(COUNT(roomNum)) AS numRoomsAccessible
-FROM RoomAccess
-GROUP BY empID;
+SELECT empID, MAX(numRoomsAccessible) AS numRoomsAccessible
+FROM (
+	SELECT empID, COUNT(roomNum) AS numRoomsAccessible
+	FROM RoomAccess
+	GROUP BY empID;)
 
 /* 7 */
 SELECT empRank AS Type, COUNT(ID) AS Count
@@ -243,9 +255,9 @@ FROM Employee
 GROUP BY empRank;
 
 /* 8 */
-SELECT patientSSN, fname, lname, futureVisitDate
-FROM Admission
-WHERE futureVisitDate IS NOT NULL;
+SELECT patientSSN, P.fName, P.lName, futureVisitDate
+FROM Admission A, Patient P
+WHERE A.patientSSN = P.SSN AND futureVisitDate IS NOT NULL;
 
 /* 9 */
 SELECT ID, model, numUnits
