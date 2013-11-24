@@ -162,4 +162,8 @@ SELECT patientSSN, fname, lname, futureVisitDate
 FROM Admission
 WHERE futureVisitDate IS NOT NULL;
 
+/* 9 */
+SELECT ID, model, numUnits
+FROM EquipmentType
+WHERE numUnits > 3;
 
