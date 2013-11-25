@@ -181,7 +181,7 @@ INSERT INTO Employee VALUES
 	'Regular',11);
 INSERT INTO Employee VALUES
 (2, 'Sally', 'Sue', 70000, 'Nurse', 1002,
-	'Regular',12);
+	'Regular',10);
 INSERT INTO Employee VALUES
 (3, 'Bob', 'Smith', 50000, 'secretary', 1001,
 	'Regular',11);
@@ -190,13 +190,13 @@ INSERT INTO Employee VALUES
 	'Regular',14);
 INSERT INTO Employee VALUES
 (5, 'Bob', 'Smith', 65000, 'Nurse', 1001,
-	'Regular',12);
+	'Regular',10);
 INSERT INTO Employee VALUES
 (6, 'Bob', 'Smith', 67000, 'Nurse', 1001,
-	'Regular',12);
+	'Regular',10);
 INSERT INTO Employee VALUES
 (7, 'Bob', 'Smith', 70000, 'Nurse', 1001,
-	'Regular',12);
+	'Regular',10);
 INSERT INTO Employee VALUES
 (8, 'Bob', 'Smith', 45000, 'Janitor', 1001,
 	'Regular',13);
@@ -204,14 +204,14 @@ INSERT INTO Employee VALUES
 (9, 'Bob', 'Smith', 45000, 'Janitor', 1001,
 	'Regular',13);
 INSERT INTO Employee VALUES
-(10, 'Bob', 'Smith', 50000, 'Rehab', 1001,
+(12, 'Bob', 'Smith', 50000, 'Rehab', 1001,
 	'Regular',14);
 /* Division Manager */
 INSERT INTO Employee VALUES
 (11, 'Div1', 'Mng1', 90000, 'Financial Supervisor',2001,
 	'DivisionMng',15);
 INSERT INTO Employee VALUES
-(12, 'Div2', 'Mng2', 95000, 'Nurse Supervisor',2001,
+(10, 'Div2', 'Mng2', 95000, 'Nurse Supervisor',2001,
 	'DivisionMng',16);
 INSERT INTO Employee VALUES
 (13, 'Div3', 'Mng3', 90000, 'Facilities Supervisor',2001,
@@ -272,13 +272,17 @@ INSERT INTO RoomAccess VALUES
 (101, 1);
 INSERT INTO RoomAccess VALUES
 (104, 2);
+INSERT INTO RoomAccess VALUES
+(103, 2);
+INSERT INTO RoomAccess VALUES
+(200, 3);
 
 INSERT INTO EquipmentType VALUES
 (1001, 'Sonic Screwdriver', 'sonic model', 'be careful', 11);
 INSERT INTO EquipmentType VALUES
 (1002, 'x-ray', 'Model2', 'instructions go here', 20);
 INSERT INTO EquipmentType VALUES
-(1004, 'MRI Machine', 'model 42', 'how do magnets work', 5);
+(1004, 'MRI Machine', 'model 42', 'how do magnets work', 2);
 
 INSERT INTO Equipment VALUES
 ('A01-02X', 1001, 2003, DATE '2011-01-01', 101);
@@ -302,6 +306,36 @@ INSERT INTO Equipment VALUES
 INSERT INTO Admission VALUES
 (1, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00,DATE '2013-02-01',
 	'000-00-0001');
+INSERT INTO Admission VALUES
+(2, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00, null,
+	'000-00-0001');
+INSERT INTO Admission VALUES
+(3, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00,DATE '2013-02-01',
+	'000-00-0002');
+INSERT INTO Admission VALUES
+(4, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00,DATE '2013-02-01',
+	'000-00-0002');
+INSERT INTO Admission VALUES
+(5, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00, null,
+	'000-00-0003');
+INSERT INTO Admission VALUES
+(6, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00, null,
+	'000-00-0003');
+INSERT INTO Admission VALUES
+(7, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00,DATE '2013-02-01',
+	'111-22-3333');
+INSERT INTO Admission VALUES
+(8, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00,DATE '2013-05-01',
+	'111-22-3333');
+INSERT INTO Admission VALUES
+(9, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00, null,
+	'333-22-4444');
+INSERT INTO Admission VALUES
+(10, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00, null,
+	'333-22-4444');
+INSERT INTO Admission VALUES
+(11, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00, null,
+	'000-00-0008');
 
 INSERT INTO Examine VALUES
 (00, 1, 'Patient is probably terminal');
