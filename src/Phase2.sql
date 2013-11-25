@@ -27,31 +27,11 @@ CREATE TABLE Employee
 	fName varchar(20),
 	lName varchar(20),
 	salary int,
-	jobTitle varchar(20),
+	jobTitle varchar(50),
 	officeNum int,
 	empRank varchar(11),
 	supervisorID int,
 Constraint empVal check (empRank in ('Regular','DivisionMng','GeneralMng'))
-);
-
-CREATE TABLE Equipment
-(
-	serialNum char(7) PRIMARY KEY,
-	typeID int,
-	purchaseYear int, 
-	lastInspection date,
-	roomNum int
-Foreign Key (typeID) References EquipmentType(ID),
-Foreign Key (roomNum) References Room(roomNumber)
-);
-
-CREATE TABLE EquipmentType
-(
-	ID int PRIMARY KEY,
-	description varchar(200),
-	model varchar(50),
-	instructions varchar(500),
-	numUnits int
 );
 
 CREATE TABLE Room 
@@ -77,6 +57,26 @@ CREATE TABLE RoomAccess
 Foreign Key (roomNum) References Room(roomNumber),
 Foreign Key (empID) References Employee(ID),
 Constraint accessPK Primary Key (roomNum, empID)
+);
+
+CREATE TABLE EquipmentType
+(
+	ID int PRIMARY KEY,
+	description varchar(200),
+	model varchar(50),
+	instructions varchar(500),
+	numUnits int
+);
+
+CREATE TABLE Equipment
+(
+	serialNum char(7) PRIMARY KEY,
+	typeID int,
+	purchaseYear int, 
+	lastInspection date,
+	roomNum int,
+Foreign Key (typeID) References EquipmentType(ID),
+Foreign Key (roomNum) References Room(roomNumber)
 );
 
 CREATE TABLE Patient
@@ -175,44 +175,57 @@ INSERT INTO Doctor VALUES
 INSERT INTO Doctor VALUES
 (99, 'F', 'Doctoring', 'Bill', 'Who');
 
+/* Regular Employee */
 INSERT INTO Employee VALUES
 (1, 'Bob', 'Smith', 50000, 'secretary', 1001,
-	'Regular',2);
+	'Regular',11);
 INSERT INTO Employee VALUES
-(2, 'Div', 'Mng1', 70000, 'supervisor',2001,
-	'DivisionMng',3);
+(2, 'Sally', 'Sue', 70000, 'Nurse', 1002,
+	'Regular',12);
 INSERT INTO Employee VALUES
-(3, 'Gen', 'Mng2', 100000, 'Boss', 3001,
+(3, 'Bob', 'Smith', 50000, 'secretary', 1001,
+	'Regular',11);
+INSERT INTO Employee VALUES
+(4, 'Bob', 'Smith', 50000, 'Rehab', 1001,
+	'Regular',14);
+INSERT INTO Employee VALUES
+(5, 'Bob', 'Smith', 65000, 'Nurse', 1001,
+	'Regular',12);
+INSERT INTO Employee VALUES
+(6, 'Bob', 'Smith', 67000, 'Nurse', 1001,
+	'Regular',12);
+INSERT INTO Employee VALUES
+(7, 'Bob', 'Smith', 70000, 'Nurse', 1001,
+	'Regular',12);
+INSERT INTO Employee VALUES
+(8, 'Bob', 'Smith', 45000, 'Janitor', 1001,
+	'Regular',13);
+INSERT INTO Employee VALUES
+(9, 'Bob', 'Smith', 45000, 'Janitor', 1001,
+	'Regular',13);
+INSERT INTO Employee VALUES
+(10, 'Bob', 'Smith', 50000, 'Rehab', 1001,
+	'Regular',14);
+/* Division Manager */
+INSERT INTO Employee VALUES
+(11, 'Div1', 'Mng1', 90000, 'Financial Supervisor',2001,
+	'DivisionMng',15);
+INSERT INTO Employee VALUES
+(12, 'Div2', 'Mng2', 95000, 'Nurse Supervisor',2001,
+	'DivisionMng',16);
+INSERT INTO Employee VALUES
+(13, 'Div3', 'Mng3', 90000, 'Facilities Supervisor',2001,
+	'DivisionMng',15);
+INSERT INTO Employee VALUES
+(14, 'Div4', 'Mng4', 90000, 'Rehab Supervisor',2001,
+	'DivisionMng',16);
+/* General Manager */
+INSERT INTO Employee VALUES
+(15, 'Gen1', 'Mng1', 120000, 'Boss', 3001,
 	'GeneralMng', NULL);
-
-
-INSERT INTO EquipmentType VALUES
-(1001, 'Sonic Screwdriver', 'sonic model', 'be careful', 11);
-INSERT INTO EquipmentType VALUES
-(1002, 'x-ray', 'Model2', 'instructions go here', 20);
-INSERT INTO EquipmentType VALUES
-(1004, 'MRI Machine', 'model 42', 'how do magnets work', 5);
-
-INSERT INTO Equipment VALUES
-('A01-02X', 1001, 2003, DATE '2011-01-01', 101);
-INSERT INTO Equipment VALUES
-('A02-03X', 1001, 2000, DATE '2011-01-01', 102);
-INSERT INTO Equipment VALUES
-('A03-04X', 1001, 2007, DATE '2011-01-01', 202);
-INSERT INTO Equipment VALUES
-('X01-abc', 1002, 1996, DATE '2013-01-01', 100);
-INSERT INTO Equipment VALUES
-('X02-bcd', 1002, 2003, DATE '2013-01-01', 200);
-INSERT INTO Equipment VALUES
-('X03-cde', 1002, 2005, DATE '2013-01-01', 201);
-INSERT INTO Equipment VALUES
-('001-MRI', 1004, 1990, DATE '2012-01-01', 100);
-INSERT INTO Equipment VALUES
-('002-MRI', 1004, 2000, DATE '2012-01-01', 202);
-INSERT INTO Equipment VALUES
-('003-MRI', 1004, 2010, DATE '2012-01-01', 203);
-
-
+INSERT INTO Employee VALUES
+(16, 'Gen2', 'Mng2', 130000, 'Co-Boss', 3001,
+	'GeneralMng', NULL);
 
 INSERT INTO Room VALUES
 (100, 'N');
@@ -259,6 +272,32 @@ INSERT INTO RoomAccess VALUES
 (101, 1);
 INSERT INTO RoomAccess VALUES
 (104, 2);
+
+INSERT INTO EquipmentType VALUES
+(1001, 'Sonic Screwdriver', 'sonic model', 'be careful', 11);
+INSERT INTO EquipmentType VALUES
+(1002, 'x-ray', 'Model2', 'instructions go here', 20);
+INSERT INTO EquipmentType VALUES
+(1004, 'MRI Machine', 'model 42', 'how do magnets work', 5);
+
+INSERT INTO Equipment VALUES
+('A01-02X', 1001, 2003, DATE '2011-01-01', 101);
+INSERT INTO Equipment VALUES
+('A02-03X', 1001, 2000, DATE '2011-01-01', 102);
+INSERT INTO Equipment VALUES
+('A03-04X', 1001, 2007, DATE '2011-01-01', 202);
+INSERT INTO Equipment VALUES
+('X01-abc', 1002, 1996, DATE '2013-01-01', 100);
+INSERT INTO Equipment VALUES
+('X02-bcd', 1002, 2003, DATE '2013-01-01', 200);
+INSERT INTO Equipment VALUES
+('X03-cde', 1002, 2005, DATE '2013-01-01', 201);
+INSERT INTO Equipment VALUES
+('001-MRI', 1004, 1990, DATE '2012-01-01', 100);
+INSERT INTO Equipment VALUES
+('002-MRI', 1004, 2000, DATE '2012-01-01', 202);
+INSERT INTO Equipment VALUES
+('003-MRI', 1004, 2010, DATE '2012-01-01', 203);
 
 INSERT INTO Admission VALUES
 (1, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00,DATE '2013-02-01',
