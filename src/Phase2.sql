@@ -180,7 +180,8 @@ INSERT INTO Employee VALUES
 (2, 'Div', 'Mng1', 70000, 'supervisor',2001,
 	'DivisionMng',3);
 INSERT INTO Employee VALUES
-(3, 'Gen', 'Mng2',NULL);
+(3, 'Gen', 'Mng2', 100000, 'Boss', 3001,
+	'GeneralMng', NULL);
 
 INSERT INTO Equipment VALUES
 ('001-abc', 1000, 2003, DATE '2011-01-01', 1001);
@@ -211,15 +212,17 @@ INSERT INTO Room VALUES
 (204, 'N');
 
 INSERT INTO RoomService VALUES
-(001,100, "shower");
+(001,100, 'shower');
 
+INSERT INTO RoomAccess VALUES
+(100, 1) 
 
 INSERT INTO Admission VALUES
 (1, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00,DATE '2013-02-01',
 	'000-00-0001');
 
 INSERT INTO Examine VALUES
-(00, 1, "Patient is probably terminal");
+(00, 1, 'Patient is probably terminal');
 
 INSERT INTO StayIn VALUES
 (1, 100, DATE '2013-01-01', DATE '2013-01-02');
@@ -259,7 +262,7 @@ SELECT empID, MAX(numRoomsAccessible) AS numRoomsAccessible
 FROM (
 	SELECT empID, COUNT(roomNum) AS numRoomsAccessible
 	FROM RoomAccess
-	GROUP BY empID;
+	GROUP BY empID
 	);
 
 /* 7 */
