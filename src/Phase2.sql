@@ -280,3 +280,11 @@ SELECT ID, model, numUnits
 FROM EquipmentType
 WHERE numUnits > 3;
 
+/* 10 */
+SELECT futureVisitDate
+FROM Admission
+WHERE SSN = '111-22-3333'
+AND futureVisitDate = 
+		(SELECT max(futureVisitDate)
+		FROM Admission
+		Where SSN = '111-22-3333');
