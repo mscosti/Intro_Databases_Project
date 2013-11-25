@@ -348,32 +348,42 @@ INSERT INTO StayIn VALUES
 /* SQL queries */
 
 /* 1 */
+/* This query is to select the hospital rooms that are occupied */
 SELECT roomNumber
 FROM Room
 WHERE occupiedFlag = 'Y';
 
 /* 2 */
+/* This query is to select the regular employees supervised by the
+	given division manager (in this case 10) */
 SELECT ID, fName, lName, salary
 FROM Employee
 WHERE empRank = 'Regular' AND supervisorID = 10;
 
 /* 3 */
+/* This query is to select the patient's SSN and amount paid by the insurance
+	over all visits to the hospital */
 SELECT patientSSN, SUM(insurancePayment) AS amountPaid
 FROM Admission
 GROUP BY patientSSN;
 
 /* 4 */
+/* This query is to select the patient SSN, first name, last name, and the
+	amount of times the patient visited */
 SELECT patientSSN, P.fName, P.lName, COUNT(patientSSN) as patientVisits
 FROM Admission A, Patient P
 WHERE A.patientSSN = P.SSN
 GROUP BY patientSSN, P.fName, P.lName;
 
 /* 5 */
+/* This query is to report the room number with the serial number 'A01-02X' */
 SELECT roomNum
 FROM Equipment
 WHERE serialNum = 'A01-02X';
 
 /* 6 */
+/* This query is to report the employee(s) who has access to the largest number
+	of rooms they can access*/
 SELECT empID, COUNT(roomNum) AS numRoomsAccessible
 FROM RoomAccess
 GROUP BY empID
@@ -383,21 +393,29 @@ HAVING COUNT(roomNum) = (
 	GROUP BY empID);
 
 /* 7 */
+/* This query is to report the number of regular employees, division managers, 
+	and general managers */
 SELECT empRank AS Type, COUNT(ID) AS Count
 FROM Employee
 GROUP BY empRank;
 
 /* 8 */
+/* This query is to report the SSN, first name, last name, and future visit date
+	of patients who have scheduled future visits */
 SELECT patientSSN, P.fName, P.lName, futureVisitDate
 FROM Admission A, Patient P
 WHERE A.patientSSN = P.SSN AND futureVisitDate IS NOT NULL;
 
 /* 9 */
+/* This query is to report the equipment type ID, model, and number of units for 
+	equipment types that have more than 3 units */
 SELECT ID, model, numUnits
 FROM EquipmentType
 WHERE numUnits > 3;
 
 /* 10 */
+/* This query is to report the date of the coming future visit for the patient with
+	SSN equal to '111-22-3333' */
 SELECT futureVisitDate
 FROM Admission
 WHERE patientSSN = '111-22-3333'
