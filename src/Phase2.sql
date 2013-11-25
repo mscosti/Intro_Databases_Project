@@ -41,6 +41,8 @@ CREATE TABLE Equipment
 	purchaseYear int, 
 	lastInspection date,
 	roomNum int
+Foreign Key (typeID) References EquipmentType(ID),
+Foreign Key (roomNum) References Room(roomNumber)
 );
 
 CREATE TABLE EquipmentType
@@ -132,25 +134,25 @@ Constraint stayInPK Primary Key (admissionNum, roomNum, startDate)
 /* insert data into tables */
 
 INSERT INTO Patient VALUES
-('000-00-0001', 'Matt', 'Costi','19 East Street, Boston MA 01234',5555555555);
+('111-22-3333', 'Matt', 'Costi','19 East Street, Boston MA 01234',5555555555);
 INSERT INTO Patient VALUES
-('000-00-0002', 'Ben', 'Senecal','19 East Street apt 7, Boston MA 01234',3333334444);
+('333-22-4444', 'Ben', 'Senecal','19 East Street apt 7, Boston MA 01234',3333334444);
 INSERT INTO Patient VALUES
-('000-00-0003', 'Pat1', 'Last1','19 East Street, Boston MA 01234',5555555555);
+('000-00-0001', 'Pat1', 'Last1','1 Main Street, Boston MA 01234',1112223333);
 INSERT INTO Patient VALUES
-('000-00-0004', 'Pat2', 'Last2','19 East Street, Boston MA 01234',5555555555);
+('000-00-0002', 'Pat2', 'Last2','2 Main Street, Boston MA 01234',0123456789);
 INSERT INTO Patient VALUES
-('000-00-0005', 'Matt', 'Costi','19 East Street, Boston MA 01234',5555555555);
+('000-00-0003', 'Pat3', 'Last3','3 Main Street, Boston MA 01234',1212123232);
 INSERT INTO Patient VALUES
-('000-00-0006', 'Matt', 'Costi','19 East Street, Boston MA 01234',5555555555);
+('000-00-0004', 'Pat4', 'Last4','4 Main Street, Boston MA 01234',1231231234);
 INSERT INTO Patient VALUES
-('000-00-0007', 'Matt', 'Costi','19 East Street, Boston MA 01234',5555555555);
+('000-00-0005', 'Pat5', 'Last5','5 Main Street, Boston MA 01234',3333333512);
 INSERT INTO Patient VALUES
-('000-00-0008', 'Matt', 'Costi','19 East Street, Boston MA 01234',5555555555);
+('000-00-0006', 'Pat6', 'Last6','10 North Main Street, Boston MA 01234',1111111111);
 INSERT INTO Patient VALUES
-('000-00-0009', 'Matt', 'Costi','19 East Street, Boston MA 01234',5555555555);
+('000-00-0007', 'Pat7', 'Last7','20 North Main Street, Boston MA 01234',2222222222);
 INSERT INTO Patient VALUES
-('000-00-0010', 'Matt', 'Costi','19 East Street, Boston MA 01234',5555555555);
+('000-00-0008', 'Pat8', 'Last8','30 North Main Street, Boston MA 01234',3333333333);
 
 INSERT INTO Doctor VALUES
 (00, 'M', 'Doctoring', 'Bill', 'Who');
@@ -192,23 +194,23 @@ INSERT INTO EquipmentType VALUES
 (1004, 'MRI Machine', 'model 42', 'how do magnets work', 5);
 
 INSERT INTO Equipment VALUES
-('A01-02X', 1000, 2003, DATE '2011-01-01', 1001);
+('A01-02X', 1001, 2003, DATE '2011-01-01', 101);
 INSERT INTO Equipment VALUES
-('001-abc', 1000, 2003, DATE '2011-01-01', 1001);
+('A02-03X', 1001, 2000, DATE '2011-01-01', 102);
 INSERT INTO Equipment VALUES
-('001-abc', 1000, 2003, DATE '2011-01-01', 1001);
+('A03-04X', 1001, 2007, DATE '2011-01-01', 202);
 INSERT INTO Equipment VALUES
-('001-abc', 1000, 2003, DATE '2011-01-01', 1001);
+('X01-abc', 1002, 1996, DATE '2013-01-01', 100);
 INSERT INTO Equipment VALUES
-('001-abc', 1000, 2003, DATE '2011-01-01', 1001);
+('X02-bcd', 1002, 2003, DATE '2013-01-01', 200);
 INSERT INTO Equipment VALUES
-('001-abc', 1000, 2003, DATE '2011-01-01', 1001);
+('X03-cde', 1002, 2005, DATE '2013-01-01', 201);
 INSERT INTO Equipment VALUES
-('001-abc', 1000, 2003, DATE '2011-01-01', 1001);
+('001-MRI', 1004, 1990, DATE '2012-01-01', 100);
 INSERT INTO Equipment VALUES
-('001-abc', 1000, 2003, DATE '2011-01-01', 1001);
+('002-MRI', 1004, 2000, DATE '2012-01-01', 202);
 INSERT INTO Equipment VALUES
-('001-abc', 1000, 2003, DATE '2011-01-01', 1001);
+('003-MRI', 1004, 2010, DATE '2012-01-01', 203);
 
 
 
