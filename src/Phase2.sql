@@ -215,7 +215,11 @@ INSERT INTO RoomService VALUES
 (001,100, 'shower');
 
 INSERT INTO RoomAccess VALUES
-(100, 1) 
+(100, 1);
+INSERT INTO RoomAccess VALUES
+(101, 1);
+INSERT INTO RoomAccess VALUES
+(104, 2);
 
 INSERT INTO Admission VALUES
 (1, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00,DATE '2013-02-01',
@@ -258,9 +262,11 @@ FROM Equipment
 WHERE serialNum = 'A01-02X';
 
 /* 6 */
-SELECT empID, MAX(numRoomsAccessible) AS numRoomsAccessible
-FROM (
-	SELECT empID, COUNT(roomNum) AS numRoomsAccessible
+SELECT empID, COUNT(roomNum) AS numRoomsAccessible
+FROM RoomAccess
+GROUP BY empID
+HAVING COUNT(roomNum) = (
+	SELECT MAX(COUNT(roomNum))
 	FROM RoomAccess
 	GROUP BY empID);
 
@@ -282,7 +288,7 @@ WHERE numUnits > 3;
 /* 10 */
 SELECT futureVisitDate
 FROM Admission
-WHERE SSN = '111-22-3333'
+WHERE patientSSN = '111-22-3333'
 AND futureVisitDate = 
 		(SELECT max(futureVisitDate)
 		FROM Admission
