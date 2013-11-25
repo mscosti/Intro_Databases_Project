@@ -183,11 +183,33 @@ INSERT INTO Employee VALUES
 (3, 'Gen', 'Mng2', 100000, 'Boss', 3001,
 	'GeneralMng', NULL);
 
+
+INSERT INTO EquipmentType VALUES
+(1001, 'Sonic Screwdriver', 'sonic model', 'be careful', 11);
+INSERT INTO EquipmentType VALUES
+(1002, 'x-ray', 'Model2', 'instructions go here', 20);
+INSERT INTO EquipmentType VALUES
+(1004, 'MRI Machine', 'model 42', 'how do magnets work', 5);
+
+INSERT INTO Equipment VALUES
+('A01-02X', 1000, 2003, DATE '2011-01-01', 1001);
+INSERT INTO Equipment VALUES
+('001-abc', 1000, 2003, DATE '2011-01-01', 1001);
+INSERT INTO Equipment VALUES
+('001-abc', 1000, 2003, DATE '2011-01-01', 1001);
+INSERT INTO Equipment VALUES
+('001-abc', 1000, 2003, DATE '2011-01-01', 1001);
+INSERT INTO Equipment VALUES
+('001-abc', 1000, 2003, DATE '2011-01-01', 1001);
+INSERT INTO Equipment VALUES
+('001-abc', 1000, 2003, DATE '2011-01-01', 1001);
+INSERT INTO Equipment VALUES
+('001-abc', 1000, 2003, DATE '2011-01-01', 1001);
+INSERT INTO Equipment VALUES
+('001-abc', 1000, 2003, DATE '2011-01-01', 1001);
 INSERT INTO Equipment VALUES
 ('001-abc', 1000, 2003, DATE '2011-01-01', 1001);
 
-INSERT INTO EquipmentType VALUES
-(1001, 'Sonic Screwdriver', 'abc-123', 'be careful', 11);
 
 
 INSERT INTO Room VALUES
@@ -213,6 +235,21 @@ INSERT INTO Room VALUES
 
 INSERT INTO RoomService VALUES
 (001,100, 'shower');
+INSERT INTO RoomService VALUES
+(002,100, 'TV');
+INSERT INTO RoomService VALUES
+(003,100, 'Telephone');
+INSERT INTO RoomService VALUES
+(001,101, 'shower');
+INSERT INTO RoomService VALUES
+(004,101, 'service4');
+INSERT INTO RoomService VALUES
+(005,104, 'service5');
+INSERT INTO RoomService VALUES
+(002,104, 'TV');
+INSERT INTO RoomService VALUES
+(002,203, 'TV');
+
 
 INSERT INTO RoomAccess VALUES
 (100, 1);
