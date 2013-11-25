@@ -262,8 +262,7 @@ SELECT empID, MAX(numRoomsAccessible) AS numRoomsAccessible
 FROM (
 	SELECT empID, COUNT(roomNum) AS numRoomsAccessible
 	FROM RoomAccess
-	GROUP BY empID
-	);
+	GROUP BY empID);
 
 /* 7 */
 SELECT empRank AS Type, COUNT(ID) AS Count
@@ -287,4 +286,4 @@ WHERE SSN = '111-22-3333'
 AND futureVisitDate = 
 		(SELECT max(futureVisitDate)
 		FROM Admission
-		Where SSN = '111-22-3333');
+		Where patientSSN = '111-22-3333');
