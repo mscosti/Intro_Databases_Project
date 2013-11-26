@@ -153,77 +153,63 @@ INSERT INTO Patient VALUES
 ('000-00-0008', 'Pat8', 'Last8','30 North Main Street, Boston MA 01234',3333333333);
 
 INSERT INTO Doctor VALUES
-(00, 'M', 'Doctoring', 'Bill', 'Who');
+(00, 'M', 'TimeLord', 'Doctor', 'Who');
 INSERT INTO Doctor VALUES
-(11, 'M', 'Doctoring', 'Bill', 'Who');
+(11, 'M', 'Doctoring', 'Matt', 'Smith');
 INSERT INTO Doctor VALUES
-(22, 'M', 'Doctoring', 'Bill', 'Who');
+(22, 'M', 'Doctoring', 'Chris', 'Eccleston');
 INSERT INTO Doctor VALUES
-(33, 'M', 'Doctoring', 'Bill', 'Who');
+(33, 'M', 'Doctoring', 'Doc4', 'Who');
 INSERT INTO Doctor VALUES
-(44, 'M', 'Doctoring', 'Bill', 'Who');
+(44, 'M', 'Doctoring', 'Doc5', 'Who');
 INSERT INTO Doctor VALUES
-(55, 'F', 'Doctoring', 'Bill', 'Who');
+(55, 'F', 'Doctoring', 'Doc6', 'Who');
 INSERT INTO Doctor VALUES
-(66, 'F', 'Doctoring', 'Bill', 'Who');
+(66, 'F', 'Doctoring', 'Doc7', 'Who');
 INSERT INTO Doctor VALUES
-(77, 'F', 'Doctoring', 'Bill', 'Who');
+(77, 'F', 'Doctoring', 'Doc8', 'Who');
 INSERT INTO Doctor VALUES
-(88, 'F', 'Doctoring', 'Bill', 'Who');
+(88, 'F', 'Doctoring', 'Doc9', 'Who');
 INSERT INTO Doctor VALUES
-(99, 'F', 'Doctoring', 'Bill', 'Who');
+(99, 'F', 'Doctoring', 'Doc10', 'Who');
 
 /* Regular Employee */
 INSERT INTO Employee VALUES
-(1, 'Bob', 'Smith', 50000, 'secretary', 1001,
-	'Regular',11);
+(1, 'Bob', 'Smith', 50000, 'secretary', 1001,'Regular',11);
 INSERT INTO Employee VALUES
-(2, 'Sally', 'Sue', 70000, 'Nurse', 1002,
-	'Regular',10);
+(2, 'Sally', 'Sue', 70000, 'Nurse', 1002,'Regular',10);
 INSERT INTO Employee VALUES
-(3, 'Bob', 'Smith', 50000, 'secretary', 1001,
-	'Regular',11);
+(3, 'Bob', 'Smith', 50000, 'secretary', 1001,'Regular',11);
 INSERT INTO Employee VALUES
-(4, 'Bob', 'Smith', 50000, 'Rehab', 1001,
-	'Regular',14);
+(4, 'Bob', 'Smith', 50000, 'Rehab', 1001,'Regular',14);
 INSERT INTO Employee VALUES
-(5, 'Bob', 'Smith', 65000, 'Nurse', 1001,
-	'Regular',10);
+(5, 'Bob', 'Smith', 65000, 'Nurse', 1001,'Regular',10);
 INSERT INTO Employee VALUES
-(6, 'Bob', 'Smith', 67000, 'Nurse', 1001,
-	'Regular',10);
+(6, 'Bob', 'Smith', 67000, 'Nurse', 1001,'Regular',10);
 INSERT INTO Employee VALUES
-(7, 'Bob', 'Smith', 70000, 'Nurse', 1001,
-	'Regular',10);
+(7, 'Bob', 'Smith', 70000, 'Nurse', 1001,'Regular',10);
 INSERT INTO Employee VALUES
-(8, 'Bob', 'Smith', 45000, 'Janitor', 1001,
-	'Regular',13);
+(8, 'Bob', 'Smith', 45000, 'Janitor', 1001,'Regular',13);
 INSERT INTO Employee VALUES
-(9, 'Bob', 'Smith', 45000, 'Janitor', 1001,
-	'Regular',13);
+(9, 'Bob', 'Smith', 45000, 'Janitor', 1001,'Regular',13);
 INSERT INTO Employee VALUES
-(12, 'Bob', 'Smith', 50000, 'Rehab', 1001,
-	'Regular',14);
-/* Division Manager */
+(12, 'Bob', 'Smith', 50000, 'Rehab', 1001,'Regular',14);
+
+/* Division Managers */
 INSERT INTO Employee VALUES
-(11, 'Div1', 'Mng1', 90000, 'Financial Supervisor',2001,
-	'DivisionMng',15);
+(11, 'Div1', 'Mng1', 90000, 'Financial Supervisor',2001,'DivisionMng',15);
 INSERT INTO Employee VALUES
-(10, 'Div2', 'Mng2', 95000, 'Nurse Supervisor',2001,
-	'DivisionMng',16);
+(10, 'Div2', 'Mng2', 95000, 'Nurse Supervisor',2001,'DivisionMng',16);
 INSERT INTO Employee VALUES
-(13, 'Div3', 'Mng3', 90000, 'Facilities Supervisor',2001,
-	'DivisionMng',15);
+(13, 'Div3', 'Mng3', 90000, 'Facilities Supervisor',2001,'DivisionMng',15);
 INSERT INTO Employee VALUES
-(14, 'Div4', 'Mng4', 90000, 'Rehab Supervisor',2001,
-	'DivisionMng',16);
-/* General Manager */
+(14, 'Div4', 'Mng4', 90000, 'Rehab Supervisor',2001,'DivisionMng',16);
+
+/* General Managers */
 INSERT INTO Employee VALUES
-(15, 'Gen1', 'Mng1', 120000, 'Boss', 3001,
-	'GeneralMng', NULL);
+(15, 'Gen1', 'Mng1', 120000, 'Boss', 3001,'GeneralMng', NULL);
 INSERT INTO Employee VALUES
-(16, 'Gen2', 'Mng2', 130000, 'Co-Boss', 3001,
-	'GeneralMng', NULL);
+(16, 'Gen2', 'Mng2', 130000, 'Co-Boss', 3001,'GeneralMng', NULL);
 
 INSERT INTO Room VALUES
 (100, 'N');
