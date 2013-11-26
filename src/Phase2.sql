@@ -179,21 +179,21 @@ INSERT INTO Employee VALUES
 INSERT INTO Employee VALUES
 (2, 'Sally', 'Sue', 70000, 'Nurse', 1002,'Regular',10);
 INSERT INTO Employee VALUES
-(3, 'Bob', 'Smith', 50000, 'secretary', 1001,'Regular',11);
+(3, 'Billy', 'Boy', 50000, 'secretary', 1001,'Regular',11);
 INSERT INTO Employee VALUES
-(4, 'Bob', 'Smith', 50000, 'Rehab', 1001,'Regular',14);
+(4, 'Jill', 'Baker', 50000, 'Rehab', 1001,'Regular',14);
 INSERT INTO Employee VALUES
-(5, 'Bob', 'Smith', 65000, 'Nurse', 1001,'Regular',10);
+(5, 'George', 'Gaft', 65000, 'Nurse', 1001,'Regular',10);
 INSERT INTO Employee VALUES
-(6, 'Bob', 'Smith', 67000, 'Nurse', 1001,'Regular',10);
+(6, 'Marge', 'Milstone', 67000, 'Nurse', 1001,'Regular',10);
 INSERT INTO Employee VALUES
-(7, 'Bob', 'Smith', 70000, 'Nurse', 1001,'Regular',10);
+(7, 'Nick', 'Taffrey', 70000, 'Nurse', 1001,'Regular',10);
 INSERT INTO Employee VALUES
-(8, 'Bob', 'Smith', 45000, 'Janitor', 1001,'Regular',13);
+(8, 'Missy', 'McCoon', 45000, 'Janitor', 1001,'Regular',13);
 INSERT INTO Employee VALUES
-(9, 'Bob', 'Smith', 45000, 'Janitor', 1001,'Regular',13);
+(9, 'Frank', 'Libersons', 45000, 'Janitor', 1001,'Regular',13);
 INSERT INTO Employee VALUES
-(12, 'Bob', 'Smith', 50000, 'Rehab', 1001,'Regular',14);
+(12, 'Lilly', 'Lovelock', 50000, 'Rehab', 1001,'Regular',14);
 
 /* Division Managers */
 INSERT INTO Employee VALUES
