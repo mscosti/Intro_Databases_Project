@@ -7,7 +7,6 @@
 /*	Drop all tables to make sure database
 	is cleared before starting
 */
-/*select 'drop table '||table_name||' cascade constraints;' from user_tables;*/
 DROP TABLE Employee CASCADE CONSTRAINTS;
 DROP TABLE Equipment CASCADE CONSTRAINTS;
 DROP TABLE EquipmentType CASCADE CONSTRAINTS;
@@ -19,8 +18,8 @@ DROP TABLE Doctor CASCADE CONSTRAINTS;
 DROP TABLE Admission CASCADE CONSTRAINTS;
 DROP TABLE Examine CASCADE CONSTRAINTS;
 DROP TABLE StayIn CASCADE CONSTRAINTS;
-/* Create Entity tables */
 
+/* Create Entity tables */
 CREATE TABLE Employee
 (
 	ID int PRIMARY KEY,
@@ -64,8 +63,7 @@ CREATE TABLE EquipmentType
 	ID int PRIMARY KEY,
 	description varchar(200),
 	model varchar(50),
-	instructions varchar(500),
-	numUnits int
+	instructions varchar(500)
 );
 
 CREATE TABLE Equipment
@@ -278,11 +276,11 @@ INSERT INTO RoomAccess VALUES
 (200, 3);
 
 INSERT INTO EquipmentType VALUES
-(1001, 'Sonic Screwdriver', 'sonic model', 'be careful', 11);
+(1001, 'Sonic Screwdriver', 'sonic model', 'be careful');
 INSERT INTO EquipmentType VALUES
-(1002, 'x-ray', 'Model2', 'instructions go here', 20);
+(1002, 'x-ray', 'Model2', 'instructions go here');
 INSERT INTO EquipmentType VALUES
-(1004, 'MRI Machine', 'model 42', 'how do magnets work', 2);
+(1004, 'MRI Machine', 'model 42', 'how do magnets work');
 
 INSERT INTO Equipment VALUES
 ('A01-02X', 1001, 2003, DATE '2011-01-01', 101);
@@ -294,6 +292,8 @@ INSERT INTO Equipment VALUES
 ('X01-abc', 1002, 1996, DATE '2013-01-01', 100);
 INSERT INTO Equipment VALUES
 ('X02-bcd', 1002, 2003, DATE '2013-01-01', 200);
+INSERT INTO Equipment VALUES
+('X02-bce', 1002, 2003, DATE '2013-01-01', 200);
 INSERT INTO Equipment VALUES
 ('X03-cde', 1002, 2005, DATE '2013-01-01', 201);
 INSERT INTO Equipment VALUES
@@ -409,8 +409,13 @@ WHERE A.patientSSN = P.SSN AND futureVisitDate IS NOT NULL;
 /* 9 */
 /* This query is to report the equipment type ID, model, and number of units for 
 	equipment types that have more than 3 units */
-SELECT ID, model, numUnits
-FROM EquipmentType
+SELECT ET.ID, model, numUnits
+FROM (SELECT ID, COUNT(serialNum) as numUnits
+		FROM Equipment E, EquipmentType ET
+		WHERE ET.ID=E.typeID
+		GROUP BY ID) EquipCount
+	INNER JOIN EquipmentType ET
+		ON EquipCount.ID = ET.ID
 WHERE numUnits > 3;
 
 /* 10 */
