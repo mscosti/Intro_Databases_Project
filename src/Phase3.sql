@@ -18,6 +18,7 @@ DROP TABLE Doctor CASCADE CONSTRAINTS;
 DROP TABLE Admission CASCADE CONSTRAINTS;
 DROP TABLE Examine CASCADE CONSTRAINTS;
 DROP TABLE StayIn CASCADE CONSTRAINTS;
+DROP VIEW CriticalCases;
 
 /* Create Entity tables */
 CREATE TABLE Employee
@@ -317,6 +318,16 @@ INSERT INTO Admission VALUES
 
 INSERT INTO Examine VALUES
 (00, 1, 'Patient is probably terminal');
+INSERT INTO Examine VALUES
+(00, 2, 'Patient is DEFINITLEY terminal');
+
+INSERT INTO Examine VALUES
+(11, 3, 'Patient is probably terminal');
+INSERT INTO Examine VALUES
+(11, 4, 'Patient is DEFINITLEY terminal');
+INSERT INTO Examine VALUES
+(11, 5, 'Patient is DEFINITLEY terminal');
+
 
 INSERT INTO StayIn VALUES
 (1, 100, DATE '2013-01-01', DATE '2013-01-02');
@@ -336,6 +347,21 @@ FROM	(SELECT A.patientSSN, COUNT(ICUAdmits.admissionNum) as ICUCount
 			GROUP BY A.PatientSSN) ICUPatients
 		INNER JOIN Patient P ON P.SSN = ICUPatients.PatientSSN
 WHERE ICUCount > 1; 
+
+CREATE VIEW DoctorLoad AS
+SELECT overload.ID, overload.gender, 'overload' as load
+FROM	(SELECT D.ID, D.gender, COUNT(DistinctAdmits.admissionNum) as numCases
+		FROM 	(SELECT DISTINCT admissionNum, doctorID FROM Examine) DistinctAdmits
+				INNER JOIN Doctor D ON D.ID = DistinctAdmits.doctorID
+		GROUP BY D.ID, D.gender) overload
+WHERE 	overload.numCases > 10
+UNION
+SELECT overload.ID, overload.gender, 'underload' as load
+FROM	(SELECT D.ID, D.gender, COUNT(DistinctAdmits.admissionNum) as numCases
+		FROM 	(SELECT DISTINCT admissionNum, doctorID FROM Examine) DistinctAdmits
+				INNER JOIN Doctor D ON D.ID = DistinctAdmits.doctorID
+		GROUP BY D.ID, D.gender) overload
+WHERE 	overload.numCases < 11;
 
 -- SELECT DISTINCT admissionNum, serviceName
 -- 						FROM StayIn S, RoomService R
