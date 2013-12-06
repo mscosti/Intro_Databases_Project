@@ -114,7 +114,7 @@ CREATE TABLE Examine
 (
 	doctorID int,
 	admissionNum int,
-	comments varchar(500),
+	comments varchar(50),
 Foreign Key (doctorID) References Doctor(ID),
 Foreign Key (admissionNum) References Admission(admissionNum),
 Constraint examinePK Primary Key (doctorID, admissionNum)
@@ -338,9 +338,9 @@ INSERT INTO Examine VALUES
 INSERT INTO Examine VALUES
 (11, 3, 'Patient is probably terminal');
 INSERT INTO Examine VALUES
-(11, 4, 'Patient is DEFINITLEY terminal');
-INSERT INTO Examine VALUES
 (11, 5, 'Patient is DEFINITLEY terminal');
+INSERT INTO Examine VALUES
+(11, 7, 'Patient is DEFINITLEY terminal');
 
 INSERT INTO Examine VALUES
 (99, 1, 'Patient is DEFINITLEY terminal');
@@ -418,10 +418,17 @@ WHERE numberOfAdmissionsToICU > 4;
 
 /* report the female doctors who are overloaded */
 SELECT D.ID, D.fName, D.lName
-FROM Doctor D
-	INNER JOIN DoctorLoad DL
-	ON DL.ID = D.ID
+FROM (Doctor D INNER JOIN DoctorLoad DL
+	ON DL.ID = D.ID)
 WHERE DL.Gender = 'F' AND DL.load = 'overload';
+
+/* report comments inserted by underloaded doctors when examining critical-case patients */
+SELECT E.DoctorID, A.patientSSN, E.comments
+FROM (Examine E INNER JOIN DoctorLoad DL
+	ON E.DoctorID = DL.ID) INNER JOIN Admission A
+		ON E.admissionNum = A.admissionNum
+WHERE DL.load = 'underload' 
+	AND A.patientSSN IN (SELECT Patient_SSN FROM CriticalCases);
 
 -- SELECT DISTINCT admissionNum, serviceName
 -- 						FROM StayIn S, RoomService R
