@@ -342,6 +342,29 @@ INSERT INTO Examine VALUES
 INSERT INTO Examine VALUES
 (11, 5, 'Patient is DEFINITLEY terminal');
 
+INSERT INTO Examine VALUES
+(99, 1, 'Patient is DEFINITLEY terminal');
+INSERT INTO Examine VALUES
+(99, 2, 'Patient is DEFINITLEY terminal');
+INSERT INTO Examine VALUES
+(99, 3, 'Patient is DEFINITLEY terminal');
+INSERT INTO Examine VALUES
+(99, 4, 'Patient is DEFINITLEY terminal');
+INSERT INTO Examine VALUES
+(99, 5, 'Patient is DEFINITLEY terminal');
+INSERT INTO Examine VALUES
+(99, 6, 'Patient is DEFINITLEY terminal');
+INSERT INTO Examine VALUES
+(99, 7, 'Patient is DEFINITLEY terminal');
+INSERT INTO Examine VALUES
+(99, 8, 'Patient is DEFINITLEY terminal');
+INSERT INTO Examine VALUES
+(99, 9, 'Patient is DEFINITLEY terminal');
+INSERT INTO Examine VALUES
+(99, 10, 'Patient is DEFINITLEY terminal');
+INSERT INTO Examine VALUES
+(99, 11, 'Patient is DEFINITLEY terminal');
+
 
 INSERT INTO StayIn VALUES
 (1, 100, DATE '2013-01-01', DATE '2013-01-02');
@@ -374,14 +397,14 @@ FROM	(SELECT A.patientSSN, COUNT(ICUAdmits.admissionNum) as ICUCount
 WHERE ICUCount > 1; 
 
 CREATE VIEW DoctorLoad AS
-SELECT overload.ID, overload.gender, 'overload' as load
+SELECT overload.ID AS ID, overload.gender AS Gender, 'overload' as load
 FROM	(SELECT D.ID, D.gender, COUNT(DistinctAdmits.admissionNum) as numCases
 		FROM 	(SELECT DISTINCT admissionNum, doctorID FROM Examine) DistinctAdmits
 				INNER JOIN Doctor D ON D.ID = DistinctAdmits.doctorID
 		GROUP BY D.ID, D.gender) overload
 WHERE 	overload.numCases > 10
 UNION
-SELECT overload.ID, overload.gender, 'underload' as load
+SELECT overload.ID AS ID, overload.gender AS Gender, 'underload' as load
 FROM	(SELECT D.ID, D.gender, COUNT(DistinctAdmits.admissionNum) as numCases
 		FROM 	(SELECT DISTINCT admissionNum, doctorID FROM Examine) DistinctAdmits
 				INNER JOIN Doctor D ON D.ID = DistinctAdmits.doctorID
@@ -392,6 +415,13 @@ WHERE 	overload.numCases < 11;
 SELECT Patient_SSN, firstName, lastName
 FROM CriticalCases
 WHERE numberOfAdmissionsToICU > 4;
+
+/* report the female doctors who are overloaded */
+SELECT D.ID, D.fName, D.lName
+FROM Doctor D
+	INNER JOIN DoctorLoad DL
+	ON DL.ID = D.ID
+WHERE DL.Gender = 'F' AND DL.load = 'overload';
 
 -- SELECT DISTINCT admissionNum, serviceName
 -- 						FROM StayIn S, RoomService R
