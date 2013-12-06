@@ -235,19 +235,11 @@ INSERT INTO Room VALUES
 INSERT INTO RoomService VALUES
 (001,100, 'ICU');
 INSERT INTO RoomService VALUES
-(002,100, 'ICU');
-INSERT INTO RoomService VALUES
-(003,100, 'ICU');
-INSERT INTO RoomService VALUES
 (001,101, 'ICU');
-INSERT INTO RoomService VALUES
-(004,101, 'ICU');
 INSERT INTO RoomService VALUES
 (005,104, 'ICU');
 INSERT INTO RoomService VALUES
-(002,104, 'ICU');
-INSERT INTO RoomService VALUES
-(002,203, 'ICU');
+(002,102, 'ICU');
 
 
 INSERT INTO RoomAccess VALUES
@@ -333,17 +325,17 @@ INSERT INTO StayIn VALUES
 INSERT INTO StayIn VALUES
 (3, 102, DATE '2013-02-02', DATE '2013-02-03');
 
-CREATE VIEW CriticalCases(
+CREATE VIEW CriticalCases AS
 SELECT SSN, fname, lname, ICUCount
 FROM	(SELECT A.patientSSN, COUNT(ICUAdmits.admissionNum) as ICUCount
-			FROM	(SELECT DISTINCT admissionNum, serviceName
+			FROM	(SELECT admissionNum, serviceName
 						FROM StayIn S, RoomService R
 						WHERE S.roomNum = R.roomNum
 						AND serviceName = 'ICU') ICUAdmits
 					INNER JOIN Admission A ON ICUAdmits.admissionNum = A.admissionNum
 			GROUP BY A.PatientSSN) ICUPatients
 		INNER JOIN Patient P ON P.SSN = ICUPatients.PatientSSN
-WHERE ICUCount > 1);
+WHERE ICUCount > 1; 
 
 -- SELECT DISTINCT admissionNum, serviceName
 -- 						FROM StayIn S, RoomService R
