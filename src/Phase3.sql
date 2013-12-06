@@ -19,6 +19,7 @@ DROP TABLE Admission CASCADE CONSTRAINTS;
 DROP TABLE Examine CASCADE CONSTRAINTS;
 DROP TABLE StayIn CASCADE CONSTRAINTS;
 DROP VIEW CriticalCases;
+DROP VIEW DoctorLoad;
 
 /* Create Entity tables */
 CREATE TABLE Employee
@@ -315,6 +316,19 @@ INSERT INTO Admission VALUES
 INSERT INTO Admission VALUES
 (11, DATE '2013-01-01', DATE '2013-01-02',200.00,300.00, null,
 	'000-00-0008');
+INSERT INTO Admission VALUES
+(12, DATE '2013-06-01', DATE '2013-06-02',200.00,500.00, null,
+	'000-00-0001');
+INSERT INTO Admission VALUES
+(13, DATE '2013-07-01', DATE '2013-07-02',150.00,400.00, null,
+	'000-00-0001');
+INSERT INTO Admission VALUES
+(14, DATE '2013-08-01', DATE '2013-08-02',100.00,200.00, null,
+	'000-00-0001');
+INSERT INTO Admission VALUES
+(15, DATE '2013-08-01', DATE '2013-08-02',100.00,200.00, null,
+	'000-00-0002');
+
 
 INSERT INTO Examine VALUES
 (00, 1, 'Patient is probably terminal');
@@ -335,9 +349,20 @@ INSERT INTO StayIn VALUES
 (2, 101, DATE '2013-02-02', DATE '2013-03-03');
 INSERT INTO StayIn VALUES
 (3, 102, DATE '2013-02-02', DATE '2013-02-03');
+INSERT INTO StayIn VALUES
+(12, 100, DATE '2013-06-01', DATE '2013-06-02');
+INSERT INTO StayIn VALUES
+(13, 100, DATE '2013-07-01', DATE '2013-07-02');
+INSERT INTO StayIn VALUES
+(14, 100, DATE '2013-08-01', DATE '2013-08-02');
+INSERT INTO StayIn VALUES
+(15, 100, DATE '2013-08-01', DATE '2013-08-02');
+ 
+ 
+/* Part 1 */
 
 CREATE VIEW CriticalCases AS
-SELECT SSN, fname, lname, ICUCount
+SELECT SSN AS Patient_SSN, fname AS firstName, lname AS lastName, ICUCount AS numberOfAdmissionsToICU
 FROM	(SELECT A.patientSSN, COUNT(ICUAdmits.admissionNum) as ICUCount
 			FROM	(SELECT admissionNum, serviceName
 						FROM StayIn S, RoomService R
@@ -362,6 +387,11 @@ FROM	(SELECT D.ID, D.gender, COUNT(DistinctAdmits.admissionNum) as numCases
 				INNER JOIN Doctor D ON D.ID = DistinctAdmits.doctorID
 		GROUP BY D.ID, D.gender) overload
 WHERE 	overload.numCases < 11;
+
+/* report the critical case patients with more than 4 visits to the ICU */
+SELECT Patient_SSN, firstName, lastName
+FROM CriticalCases
+WHERE numberOfAdmissionsToICU > 4;
 
 -- SELECT DISTINCT admissionNum, serviceName
 -- 						FROM StayIn S, RoomService R
