@@ -436,30 +436,25 @@ WHERE DL.load = 'underload'
 
 /* Part 2 */
 
-SELECT roomNum
-FROM (SELECT roomNum, COUNT(serviceName) AS services
-	FROM RoomService
-	GROUP BY roomNum)
-WHERE services = 3;
 
 /* any room in the hospital can not offer more than 3 services */
-/* 
 CREATE OR REPLACE TRIGGER ServiceCheck
 BEFORE INSERT OR UPDATE OF roomNum ON RoomService
 FOR EACH ROW
+DECLARE
+	CURSOR rooms IS (
+		SELECT roomNum, count(*) AS numServices FROM RoomService
+		GROUP BY roomNum);
 BEGIN
-	IF (:new.roomNum in 
-		(SELECT roomNum
-		FROM (SELECT roomNum, COUNT(serviceName) AS services
-			FROM RoomService
-			GROUP BY roomNum)
-		WHERE services = 3)) THEN
-	RAISE_APPLICATION_ERROR(-20000, 
-		'You can not add more than 3 services to a room');
-	END IF;
+	FOR rec IN rooms LOOP
+		IF (rec.roomNum = :new.roomNum AND rec.numServices = 3) THEN
+			RAISE_APPLICATION_ERROR(-20000, 
+				'You can not add more than 3 services to a room');
+		END IF;
+	END LOOP;
 END;
 /
- */
+
  /* insurance payment should be 70% of total payment */
  CREATE OR REPLACE TRIGGER AmountInsurancePaid
  BEFORE INSERT OR UPDATE ON Admission
