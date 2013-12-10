@@ -44,11 +44,10 @@ Constraint flag check (occupiedFlag in('Y','N'))
 
 CREATE TABLE RoomService
 (
-	serviceID int,
 	roomNum int,
 	serviceName varchar(20),
 Foreign Key (roomNum) References Room(roomNumber),
-Constraint servicePK Primary Key (serviceID,roomNum)
+Constraint servicePK Primary Key (roomNum, serviceName)
 );
 
 CREATE TABLE RoomAccess
@@ -235,13 +234,17 @@ INSERT INTO Room VALUES
 (204, 'N');
 
 INSERT INTO RoomService VALUES
-(001,100, 'ICU');
+(100, 'ICU');
 INSERT INTO RoomService VALUES
-(001,101, 'ICU');
+(101, 'MRI');
 INSERT INTO RoomService VALUES
-(005,104, 'ICU');
+(100, 'X-Ray');
 INSERT INTO RoomService VALUES
-(002,102, 'ICU');
+(100, 'MRI');
+INSERT INTO RoomService VALUES
+(104, 'ICU');
+INSERT INTO RoomService VALUES
+(102, 'ICU');
 
 
 INSERT INTO RoomAccess VALUES
@@ -429,6 +432,42 @@ FROM (Examine E INNER JOIN DoctorLoad DL
 		ON E.admissionNum = A.admissionNum
 WHERE DL.load = 'underload' 
 	AND A.patientSSN IN (SELECT Patient_SSN FROM CriticalCases);
+
+
+/* Part 2 */
+
+SELECT roomNum
+FROM (SELECT roomNum, COUNT(serviceName) AS services
+	FROM RoomService
+	GROUP BY roomNum)
+WHERE services = 3;
+
+/* any room in the hospital can not offer more than 3 services */
+/* 
+CREATE OR REPLACE TRIGGER ServiceCheck
+BEFORE INSERT OR UPDATE OF roomNum ON RoomService
+FOR EACH ROW
+BEGIN
+	IF (:new.roomNum in 
+		(SELECT roomNum
+		FROM (SELECT roomNum, COUNT(serviceName) AS services
+			FROM RoomService
+			GROUP BY roomNum)
+		WHERE services = 3)) THEN
+	RAISE_APPLICATION_ERROR(-20000, 
+		'You can not add more than 3 services to a room');
+	END IF;
+END;
+/
+ */
+ /* insurance payment should be 70% of total payment */
+ CREATE OR REPLACE TRIGGER AmountInsurancePaid
+ BEFORE INSERT OR UPDATE ON Admission
+ FOR EACH ROW
+ BEGIN
+ 	:new.insurancePayment := :new.totalPayment * .7;
+ END;
+ /
 
 -- SELECT DISTINCT admissionNum, serviceName
 -- 						FROM StayIn S, RoomService R
