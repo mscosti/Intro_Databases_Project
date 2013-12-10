@@ -30,9 +30,9 @@ CREATE TABLE Employee
 	salary int,
 	jobTitle varchar(50),
 	officeNum int,
-	empRank varchar(11),
+	empRank int,
 	supervisorID int,
-Constraint empVal check (empRank in ('Regular','DivisionMng','GeneralMng'))
+Constraint empVal check (empRank in (0,1,2))
 );
 
 CREATE TABLE Room 
@@ -177,41 +177,41 @@ INSERT INTO Doctor VALUES
 
 /* Regular Employee */
 INSERT INTO Employee VALUES
-(1, 'Bob', 'Smith', 50000, 'secretary', 1001,'Regular',11);
+(1, 'Bob', 'Smith', 50000, 'secretary', 1001, 0, 11);
 INSERT INTO Employee VALUES
-(2, 'Sally', 'Sue', 70000, 'Nurse', 1002,'Regular',10);
+(2, 'Sally', 'Sue', 70000, 'Nurse', 1002, 0, 10);
 INSERT INTO Employee VALUES
-(3, 'Billy', 'Boy', 50000, 'secretary', 1001,'Regular',11);
+(3, 'Billy', 'Boy', 50000, 'secretary', 1001, 0, 11);
 INSERT INTO Employee VALUES
-(4, 'Jill', 'Baker', 50000, 'Rehab', 1001,'Regular',14);
+(4, 'Jill', 'Baker', 50000, 'Rehab', 1001, 0, 14);
 INSERT INTO Employee VALUES
-(5, 'George', 'Gaft', 65000, 'Nurse', 1001,'Regular',10);
+(5, 'George', 'Gaft', 65000, 'Nurse', 1001, 0, 10);
 INSERT INTO Employee VALUES
-(6, 'Marge', 'Milstone', 67000, 'Nurse', 1001,'Regular',10);
+(6, 'Marge', 'Milstone', 67000, 'Nurse', 1001, 0, 10);
 INSERT INTO Employee VALUES
-(7, 'Nick', 'Taffrey', 70000, 'Nurse', 1001,'Regular',10);
+(7, 'Nick', 'Taffrey', 70000, 'Nurse', 1001, 0, 10);
 INSERT INTO Employee VALUES
-(8, 'Missy', 'McCoon', 45000, 'Janitor', 1001,'Regular',13);
+(8, 'Missy', 'McCoon', 45000, 'Janitor', 1001, 0, 13);
 INSERT INTO Employee VALUES
-(9, 'Frank', 'Libersons', 45000, 'Janitor', 1001,'Regular',13);
+(9, 'Frank', 'Libersons', 45000, 'Janitor', 1001, 0, 13);
 INSERT INTO Employee VALUES
-(12, 'Lilly', 'Lovelock', 50000, 'Rehab', 1001,'Regular',14);
+(12, 'Lilly', 'Lovelock', 50000, 'Rehab', 1001, 0, 14);
 
 /* Division Managers */
 INSERT INTO Employee VALUES
-(11, 'Div1', 'Mng1', 90000, 'Financial Supervisor',2001,'DivisionMng',15);
+(11, 'Div1', 'Mng1', 90000, 'Financial Supervisor',2001,1,15);
 INSERT INTO Employee VALUES
-(10, 'Div2', 'Mng2', 95000, 'Nurse Supervisor',2001,'DivisionMng',16);
+(10, 'Div2', 'Mng2', 95000, 'Nurse Supervisor',2001,1,16);
 INSERT INTO Employee VALUES
-(13, 'Div3', 'Mng3', 90000, 'Facilities Supervisor',2001,'DivisionMng',15);
+(13, 'Div3', 'Mng3', 90000, 'Facilities Supervisor',2001,1,15);
 INSERT INTO Employee VALUES
-(14, 'Div4', 'Mng4', 90000, 'Rehab Supervisor',2001,'DivisionMng',16);
+(14, 'Div4', 'Mng4', 90000, 'Rehab Supervisor',2001,1,16);
 
 /* General Managers */
 INSERT INTO Employee VALUES
-(15, 'Gen1', 'Mng1', 120000, 'Boss', 3001,'GeneralMng', NULL);
+(15, 'Gen1', 'Mng1', 120000, 'Boss', 3001, 1, NULL);
 INSERT INTO Employee VALUES
-(16, 'Gen2', 'Mng2', 130000, 'Co-Boss', 3001,'GeneralMng', NULL);
+(16, 'Gen2', 'Mng2', 130000, 'Co-Boss', 3001, 1, NULL);
 
 INSERT INTO Room VALUES
 (100, 'N');
