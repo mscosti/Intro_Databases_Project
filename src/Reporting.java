@@ -25,19 +25,38 @@ public class Reporting
 
 					System.out.println("Enter Patient SSN: ");
 					String SSN = scanner.nextLine();
-					Statement stmt = conn.createStatement();
-					ResultSet rset = stmt.executeQuery
-						("SELECT SSN, fName, lName, address "+
-						 "FROM Patient WHERE SSN = '" + SSN + "'");
+					PreparedStatement pstmt = conn.prepareStatement(
+						"SELECT SSN, fName, lName, address "+
+						 "FROM Patient WHERE SSN = ?");
+					pstmt.setString(1, SSN);
+					ResultSet rset = pstmt.execute
 
 					displayPatient(rset);
-
 					break;
 				case 2:
-					System.out.println("Reporting Doctors");
+					System.out.println("Enter Doctor ID: ");
+					String ID = scanner.nextLine();
+					PreparedStatement pstmt = conn.prepareStatement(
+						"SELECT ID, fName, lName, gender "+
+						 "FROM Patient WHERE SSN = ?");
+					pstmt.setString(1, Integer.valueOf(ID));
+					ResultSet rset = pstmt.execute
+
+					displayDoctor(rset);
 					break;
 				case 3:
-					System.out.println("Report Admission Info");
+					System.out.println("Enter Admission Number: ");
+					String admit = scanner.nextLine();
+					PreparedStatement admitInfo = conn.prepareStatement(
+						"SELECT A.admissionNum, A.patientSSN, A.admissionDate, A.totalPayment, E.DoctorID " +
+						"FROM Admission A INNER JOIN Exammine E ON A.admissionNum = E.admissionNum" +
+						"WHERE A.admissionNum = ?");
+					PreparedStatement roomList = conn.prepareStatement(
+						"SELECT roomNum, startDate, endDate " +
+						"FROM StayIn WHERE admissionNum = ?");
+					admitInfo.setInt(1,Integer.valueOf(admit));
+					roomList.setInt(1,Integer.valueOf(admit));
+
 					break;
 				case 4:
 					System.out.println("Update Payment");
@@ -69,6 +88,22 @@ public class Reporting
 						"Patient First Name: " + firstName + "\n"
 						"Patient Last Name: " + lastName + "\n"
 						"Patient Address: " + address;
+
+		System.out.println(output);
+	}
+
+	public static void displayDoctor(ResultSet doctor) throws SQLException
+	{
+		doctor.next();
+		Int ID = patient.getInt("ID");
+		String firstName = patient.getString("fName");
+		String lastName = patient.getString("lName");
+		String gender = patient.getString("gender");
+
+		String output = "Doctor ID: " + SSN + "\n"
+						"Doctor First Name: " + firstName + "\n"
+						"Doctor Last Name: " + lastName + "\n"
+						"Doctor Gender: " + gender;
 
 		System.out.println(output);
 	}
