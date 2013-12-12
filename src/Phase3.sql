@@ -208,9 +208,9 @@ INSERT INTO Employee VALUES
 
 /* General Managers */
 INSERT INTO Employee VALUES
-(15, 'Gen1', 'Mng1', 120000, 'Boss', 3001, 1, NULL);
+(15, 'Gen1', 'Mng1', 120000, 'Boss', 3001, 2, NULL);
 INSERT INTO Employee VALUES
-(16, 'Gen2', 'Mng2', 130000, 'Co-Boss', 3001, 1, NULL);
+(16, 'Gen2', 'Mng2', 130000, 'Co-Boss', 3001, 2, NULL);
 
 INSERT INTO Room VALUES
 (100, 'N');
@@ -469,6 +469,26 @@ END;
  BEFORE INSERT OR UPDATE OF empRank, supervisorID ON Employee
  FOR EACH ROW
  DECLARE
+ 	CURSOR emps IS (SELECT ID, empRank, supervisorID FROM Employee);
+ BEGIN
+ 	IF (:new.empRank != 2) THEN
+	 	FOR emp IN emps LOOP
+	 		IF (:new.supervisorID = emp.ID) THEN
+	 			IF (:new.empRank != emp.empRank - 1) THEN
+	 				RAISE_APPLICATION_ERROR(-20000, 
+						'An employees supervisor must be 1 rank higher');
+	 			END IF;
+	 		END IF;
+	 	END LOOP;
+	END IF;
+ END;
+ /
+
+ /* 
+ CREATE OR REPLACE TRIGGER EmployeeSupervisorCheck
+ BEFORE INSERT OR UPDATE OF empRank, supervisorID ON Employee
+ FOR EACH ROW
+ DECLARE
  	CURSOR emps IS (
  		SELECT E.empRank AS LowerRank, S.empRank AS UpperRank 
  		FROM (Employee AS E INNER JOIN Employee AS S)
@@ -482,7 +502,7 @@ END;
  	END LOOP;
  END;
  /
-
+ */
 -- SELECT DISTINCT admissionNum, serviceName
 -- 						FROM StayIn S, RoomService R
 -- 						WHERE S.roomNum = R.roomNum
