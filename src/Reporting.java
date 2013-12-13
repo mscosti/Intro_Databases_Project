@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.io.InputStream;
 import java.util.Scanner;
+import java.util.Date;
 
 public class Reporting
 {
@@ -25,38 +26,46 @@ public class Reporting
 
 					System.out.println("Enter Patient SSN: ");
 					String SSN = scanner.nextLine();
-					PreparedStatement pstmt = conn.prepareStatement(
+					PreparedStatement patStmt = conn.prepareStatement(
 						"SELECT SSN, fName, lName, address "+
 						 "FROM Patient WHERE SSN = ?");
-					pstmt.setString(1, SSN);
-					ResultSet rset = pstmt.execute
+					patStmt.setString(1, SSN);
+					ResultSet patInfo = patStmt.executeQuery();
 
-					displayPatient(rset);
+					displayPatient(patInfo);
 					break;
 				case 2:
 					System.out.println("Enter Doctor ID: ");
 					String ID = scanner.nextLine();
-					PreparedStatement pstmt = conn.prepareStatement(
+					PreparedStatement docStmt = conn.prepareStatement(
 						"SELECT ID, fName, lName, gender "+
-						 "FROM Patient WHERE SSN = ?");
-					pstmt.setString(1, Integer.valueOf(ID));
-					ResultSet rset = pstmt.execute
+						 "FROM Doctor WHERE ID = ?");
+					docStmt.setInt(1, Integer.valueOf(ID));
+					ResultSet docInfo = docStmt.executeQuery();
 
-					displayDoctor(rset);
+					displayDoctor(docInfo);
 					break;
 				case 3:
 					System.out.println("Enter Admission Number: ");
 					String admit = scanner.nextLine();
-					PreparedStatement admitInfo = conn.prepareStatement(
-						"SELECT A.admissionNum, A.patientSSN, A.admissionDate, A.totalPayment, E.DoctorID " +
-						"FROM Admission A INNER JOIN Exammine E ON A.admissionNum = E.admissionNum" +
+					PreparedStatement admitQry = conn.prepareStatement(
+						"SELECT A.admissionNum, A.patientSSN, A.admissionDate, A.totalPayment, E.doctorID " +
+						"FROM Admission A INNER JOIN Examine E ON A.admissionNum = E.admissionNum " +
 						"WHERE A.admissionNum = ?");
-					PreparedStatement roomList = conn.prepareStatement(
+					System.out.println("OK!!!1\n");
+					PreparedStatement roomQry = conn.prepareStatement(
 						"SELECT roomNum, startDate, endDate " +
 						"FROM StayIn WHERE admissionNum = ?");
-					admitInfo.setInt(1,Integer.valueOf(admit));
-					roomList.setInt(1,Integer.valueOf(admit));
+					System.out.println("OK!!!2\n");
+					admitQry.setInt(1,Integer.valueOf(admit));
+					roomQry.setInt(1,Integer.valueOf(admit));
 
+					ResultSet admitInfo = admitQry.executeQuery();
+					System.out.println("OK!!3\n");
+					ResultSet roomList = roomQry.executeQuery();
+					System.out.println("OK!!!4\n");
+
+					displayAdmissionInfo(admitInfo,roomList);
 					break;
 				case 4:
 					System.out.println("Update Payment");
@@ -84,9 +93,9 @@ public class Reporting
 		String lastName = patient.getString("lName");
 		String address = patient.getString("address");
 
-		String output = "Patient SSN: " + SSN + "\n"
-						"Patient First Name: " + firstName + "\n"
-						"Patient Last Name: " + lastName + "\n"
+		String output = "Patient SSN: " + SSN + "\n" +
+						"Patient First Name: " + firstName + "\n" +
+						"Patient Last Name: " + lastName + "\n" +
 						"Patient Address: " + address;
 
 		System.out.println(output);
@@ -95,17 +104,48 @@ public class Reporting
 	public static void displayDoctor(ResultSet doctor) throws SQLException
 	{
 		doctor.next();
-		Int ID = patient.getInt("ID");
-		String firstName = patient.getString("fName");
-		String lastName = patient.getString("lName");
-		String gender = patient.getString("gender");
+		int ID = doctor.getInt("ID");
+		String firstName = doctor.getString("fName");
+		String lastName = doctor.getString("lName");
+		String gender = doctor.getString("gender");
 
-		String output = "Doctor ID: " + SSN + "\n"
-						"Doctor First Name: " + firstName + "\n"
-						"Doctor Last Name: " + lastName + "\n"
+		String output = "Doctor ID: " + ID + "\n" +
+						"Doctor First Name: " + firstName + "\n" +
+						"Doctor Last Name: " + lastName + "\n" +
 						"Doctor Gender: " + gender;
 
 		System.out.println(output);
+	}
+
+	public static void displayAdmissionInfo(ResultSet admit, ResultSet rooms) throws SQLException
+	{
+		admit.next();
+		int admitNum = admit.getInt("admissionNum");
+		String SSN = admit.getString("patientSSN");
+		int ID = admit.getInt("doctorID");
+		Date admitDate = admit.getDate("admissionDate");
+		int payment = admit.getInt("totalPayment");
+
+		String output_admit = 	"Admission Number: " + admitNum + "\n" +
+								"Patient SSN: " + SSN + "\n" +
+								"Doctor ID: " + ID + "\n" +
+								"Admission date (startdate): " + admitDate + "\n" +
+								"Total Payment: " + payment + "\n";
+		System.out.println(output_admit);
+
+		while(rooms.next())
+		{
+			int roomNum = rooms.getInt("roomNum");
+			Date startDate = rooms.getDate("startDate");
+			Date endDate = rooms.getDate("endDate");
+
+			String output_room = 	"RoomNum: " + roomNum +
+									" fromDate: " + startDate +
+									" toDate: " + endDate + "\n";
+			System.out.println(output_room);
+		}
+
+
 	}
 
 	public static Connection connectToJDBC()
