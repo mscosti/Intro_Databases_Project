@@ -486,6 +486,26 @@ END;
  END;
  /
 
+ /* Admissions to the ICU must have a future visit date set to 3 months later */
+ CREATE OR REPLACE TRIGGER ICUFutureVisit
+ AFTER INSERT OR UPDATE OF roomNum ON StayIn
+ FOR EACH ROW
+ DECLARE
+ 	CURSOR ICURooms IS (
+		SELECT roomNum
+		FROM RoomService
+		WHERE serviceName = 'ICU');
+ BEGIN
+ 	FOR room IN ICURooms LOOP
+ 		IF (:new.roomNum = room.roomNum) THEN
+ 			UPDATE Admission 
+ 				SET futureVisitDate = :new.startDate + 90
+ 				WHERE admissionNum = :new.admissionNum;
+ 		END IF;
+ 	END LOOP;
+ END;
+ /
+
  /* 
  CREATE OR REPLACE TRIGGER EmployeeSupervisorCheck
  BEFORE INSERT OR UPDATE OF empRank, supervisorID ON Employee
