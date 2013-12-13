@@ -438,6 +438,7 @@ WHERE DL.load = 'underload'
 
 
 /* any room in the hospital can not offer more than 3 services */
+
 CREATE OR REPLACE TRIGGER ServiceCheck
 BEFORE INSERT OR UPDATE OF roomNum ON RoomService
 FOR EACH ROW
@@ -445,6 +446,7 @@ DECLARE
 	CURSOR rooms IS (
 		SELECT roomNum, count(*) AS numServices FROM RoomService
 		GROUP BY roomNum);
+	pragma autonomous_transaction;
 BEGIN
 	FOR rec IN rooms LOOP
 		IF (rec.roomNum = :new.roomNum AND rec.numServices = 3) THEN
