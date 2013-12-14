@@ -263,7 +263,7 @@ INSERT INTO EquipmentType VALUES
 INSERT INTO EquipmentType VALUES
 (1002, 'x-ray', 'Model2', 'instructions go here');
 INSERT INTO EquipmentType VALUES
-(1004, 'MRI Machine', 'model 42', 'how do magnets work');
+(1004, 'MRI', 'model 42', 'how do magnets work');
 
 INSERT INTO Equipment VALUES
 ('A01-02X', 1001, 2003, DATE '2011-01-01', 101);
@@ -477,7 +477,7 @@ END;
 	 	FOR emp IN emps LOOP
 	 		IF (:new.supervisorID = emp.ID) THEN
 	 			IF (:new.empRank != emp.empRank - 1) THEN
-	 				RAISE_APPLICATION_ERROR(-20000, 
+	 				RAISE_APPLICATION_ERROR(-20001, 
 						'An employees supervisor must be 1 rank higher');
 	 			END IF;
 	 		END IF;
@@ -506,6 +506,28 @@ END;
  END;
  /
 
+ /* MRIs must have a purchase year and it must be after 2005 */
+ 
+ CREATE OR REPLACE TRIGGER MRIPurchaseYear
+ BEFORE INSERT OR UPDATE ON Equipment
+ FOR EACH ROW
+ DECLARE
+ 	CURSOR MRIEquipment IS (
+ 		SELECT ID 
+ 		FROM EquipmentType 
+ 		WHERE description = 'MRI');
+ BEGIN
+ 	FOR MRIid IN MRIEquipment LOOP
+	 	IF (:new.typeID = MRIid.ID) THEN
+	 		IF (:new.purchaseYear IS NULL OR
+	 			:new.purchaseYear <= 2005) THEN
+	 				RAISE_APPLICATION_ERROR(-20002, 
+							'An MRI must have a purchase year that is after 2005');
+	 		END IF;
+	 	END IF;
+	END LOOP;
+ END;
+ /
  /* 
  CREATE OR REPLACE TRIGGER EmployeeSupervisorCheck
  BEFORE INSERT OR UPDATE OF empRank, supervisorID ON Employee
