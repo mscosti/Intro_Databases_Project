@@ -550,40 +550,4 @@ END;
  	END LOOP;
  END;
  /
- /* 
- CREATE OR REPLACE TRIGGER EmployeeSupervisorCheck
- BEFORE INSERT OR UPDATE OF empRank, supervisorID ON Employee
- FOR EACH ROW
- DECLARE
- 	CURSOR emps IS (
- 		SELECT E.empRank AS LowerRank, S.empRank AS UpperRank 
- 		FROM (Employee AS E INNER JOIN Employee AS S)
- 		ON E.supervisorID = S.ID);
- BEGIN
- 	FOR emp IN emps LOOP
- 		IF (emp.LowerRank != emp.UperRank - 1) THEN
- 			RAISE_APPLICATION_ERROR(-20001, 
-				'An employee must have a supervisor who is one rank higher');
- 		END IF;
- 	END LOOP;
- END;
- /
- */
--- SELECT DISTINCT admissionNum, serviceName
--- 						FROM StayIn S, RoomService R
--- 						WHERE S.roomNum = R.roomNum
--- 						AND serviceName = 'ICU';
-
--- SELECT SSN, fname, lname, ICUCount
--- FROM	(Select A.patientSSN, COUNT(ICUAdmits.admissionNum) as ICUCount
--- 			FROM	Admission 
--- 			WHERE 	Admission.admissionNum IN
--- 					(SELECT admissionNum
--- 						FROM StayIn S,
--- 						WHERE S.admissionNum IN (SELECT * FROM RoomService WHERE ServiceName = 'ICU'))
--- 			GROUP BY A.PatientSSN)
--- WHERE ICUCount >1;
-	
-
-
 
