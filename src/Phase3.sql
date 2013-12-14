@@ -528,6 +528,28 @@ END;
 	END LOOP;
  END;
  /
+
+ /* When an admission is added, print out the names of the doctors who
+ 	previously examined this patient */
+ CREATE OR REPLACE TRIGGER PreviousDoctors
+ BEFORE INSERT ON Admission
+ FOR EACH ROW
+ DECLARE
+ 	CURSOR PrevDoctors IS  (
+ 		SELECT DISTINCT DE.fName, DE.lName
+ 		FROM (
+ 			SELECT D.fName, D.lName, E.admissionNum
+ 			FROM Doctor D INNER JOIN Examine E
+ 			ON D.ID = E.doctorID) DE
+ 		INNER JOIN Admission A
+ 		ON DE.admissionNum = A.admissionNum
+ 		WHERE patientSSN = :new.patientSSN);
+ BEGIN
+ 	FOR doc IN PrevDoctors LOOP
+ 		dbms_output.put_line(doc.fName || ' ' || doc.lName);
+ 	END LOOP;
+ END;
+ /
  /* 
  CREATE OR REPLACE TRIGGER EmployeeSupervisorCheck
  BEFORE INSERT OR UPDATE OF empRank, supervisorID ON Employee
