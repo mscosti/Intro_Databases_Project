@@ -52,23 +52,30 @@ public class Reporting
 						"SELECT A.admissionNum, A.patientSSN, A.admissionDate, A.totalPayment, E.doctorID " +
 						"FROM Admission A INNER JOIN Examine E ON A.admissionNum = E.admissionNum " +
 						"WHERE A.admissionNum = ?");
-					System.out.println("OK!!!1\n");
 					PreparedStatement roomQry = conn.prepareStatement(
 						"SELECT roomNum, startDate, endDate " +
 						"FROM StayIn WHERE admissionNum = ?");
-					System.out.println("OK!!!2\n");
 					admitQry.setInt(1,Integer.valueOf(admit));
 					roomQry.setInt(1,Integer.valueOf(admit));
 
 					ResultSet admitInfo = admitQry.executeQuery();
-					System.out.println("OK!!3\n");
 					ResultSet roomList = roomQry.executeQuery();
-					System.out.println("OK!!!4\n");
 
 					displayAdmissionInfo(admitInfo,roomList);
 					break;
 				case 4:
-					System.out.println("Update Payment");
+					System.out.println("Enter Admission Number: ");
+					String admitNum = scanner.nextLine();
+					System.out.println("Enter the new total payment: ");
+					String newPayment = scanner.nextLine();
+
+					PreparedStatement updatePayment = conn.prepareStatement(
+						"UPDATE Admission SET totalPayment = ? WHERE admissionNum = ?");
+					updatePayment.setInt(1,Integer.valueOf(newPayment));
+					updatePayment.setInt(2,Integer.valueOf(admitNum));
+
+					updatePayment.executeUpdate();
+
 					break;
 			}
 		}
