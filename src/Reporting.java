@@ -33,6 +33,9 @@ public class Reporting
 					ResultSet patInfo = patStmt.executeQuery();
 
 					displayPatient(patInfo);
+					patStmt.close();
+					patInfo.close();
+					conn.close();
 					break;
 				case 2:
 					System.out.println("Enter Doctor ID: ");
@@ -44,6 +47,9 @@ public class Reporting
 					ResultSet docInfo = docStmt.executeQuery();
 
 					displayDoctor(docInfo);
+					docStmt.close();
+					docInfo.close();
+					conn.close();
 					break;
 				case 3:
 					System.out.println("Enter Admission Number: ");
@@ -62,6 +68,11 @@ public class Reporting
 					ResultSet roomList = roomQry.executeQuery();
 
 					displayAdmissionInfo(admitInfo,roomList);
+					admitQry.close();
+					roomQry.close();
+					admitInfo.close();
+					roomList.close();
+					conn.close();
 					break;
 				case 4:
 					System.out.println("Enter Admission Number: ");
@@ -75,7 +86,8 @@ public class Reporting
 					updatePayment.setInt(2,Integer.valueOf(admitNum));
 
 					updatePayment.executeUpdate();
-
+					updatePayment.close();
+					conn.close();
 					break;
 			}
 		}
@@ -94,51 +106,69 @@ public class Reporting
 
 	public static void displayPatient(ResultSet patient) throws SQLException
 	{
-		patient.next();
-		String SSN = patient.getString("SSN");
-		String firstName = patient.getString("fName");
-		String lastName = patient.getString("lName");
-		String address = patient.getString("address");
+		if (patient.next())
+		{
+			String SSN = patient.getString("SSN");
+			String firstName = patient.getString("fName");
+			String lastName = patient.getString("lName");
+			String address = patient.getString("address");
 
-		String output = "Patient SSN: " + SSN + "\n" +
-						"Patient First Name: " + firstName + "\n" +
-						"Patient Last Name: " + lastName + "\n" +
-						"Patient Address: " + address;
+			String output = "Patient SSN: " + SSN + "\n" +
+							"Patient First Name: " + firstName + "\n" +
+							"Patient Last Name: " + lastName + "\n" +
+							"Patient Address: " + address;
 
-		System.out.println(output);
+			System.out.println(output);
+		}
+		else
+			System.out.println("no patient could be found for that SSN\n");
+		
 	}
 
 	public static void displayDoctor(ResultSet doctor) throws SQLException
 	{
-		doctor.next();
-		int ID = doctor.getInt("ID");
-		String firstName = doctor.getString("fName");
-		String lastName = doctor.getString("lName");
-		String gender = doctor.getString("gender");
+		if (doctor.next())
+		{
+			int ID = doctor.getInt("ID");
+			String firstName = doctor.getString("fName");
+			String lastName = doctor.getString("lName");
+			String gender = doctor.getString("gender");
 
-		String output = "Doctor ID: " + ID + "\n" +
-						"Doctor First Name: " + firstName + "\n" +
-						"Doctor Last Name: " + lastName + "\n" +
-						"Doctor Gender: " + gender;
+			String output = "Doctor ID: " + ID + "\n" +
+							"Doctor First Name: " + firstName + "\n" +
+							"Doctor Last Name: " + lastName + "\n" +
+							"Doctor Gender: " + gender;
 
-		System.out.println(output);
+			System.out.println(output);
+		}
+		else
+			System.out.println("no doctor could be found with that ID\n");
+		
 	}
 
 	public static void displayAdmissionInfo(ResultSet admit, ResultSet rooms) throws SQLException
 	{
-		admit.next();
-		int admitNum = admit.getInt("admissionNum");
-		String SSN = admit.getString("patientSSN");
-		int ID = admit.getInt("doctorID");
-		Date admitDate = admit.getDate("admissionDate");
-		int payment = admit.getInt("totalPayment");
+		if (admit.next())
+		{
+			int admitNum = admit.getInt("admissionNum");
+			String SSN = admit.getString("patientSSN");
+			int ID = admit.getInt("doctorID");
+			Date admitDate = admit.getDate("admissionDate");
+			int payment = admit.getInt("totalPayment");
 
-		String output_admit = 	"Admission Number: " + admitNum + "\n" +
-								"Patient SSN: " + SSN + "\n" +
-								"Doctor ID: " + ID + "\n" +
-								"Admission date (startdate): " + admitDate + "\n" +
-								"Total Payment: " + payment + "\n";
-		System.out.println(output_admit);
+			String output_admit = 	"Admission Number: " + admitNum + "\n" +
+									"Patient SSN: " + SSN + "\n" +
+									"Doctor ID: " + ID + "\n" +
+									"Admission date (startdate): " + admitDate + "\n" +
+									"Total Payment: " + payment + "\n";
+			System.out.println(output_admit);
+		}
+		else
+		{
+			System.out.println("no admission could be found with that admission number\n");
+			return;
+		}
+			
 
 		while(rooms.next())
 		{
